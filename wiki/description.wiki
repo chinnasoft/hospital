@@ -1,9 +1,9 @@
 #summary One-sentence summary of this page.
 = project: =
-  _E-hospital._
+_E-hospital._
 = designed: =
-  _Hospital or sanatorium staff._
+_Hospital or sanatorium staff._
 = The main features: =
-      * _patient recording_ 
-      * _keeping medical history_
-      * _record of procedures, tests and  execution of them._
+* _patient recording_ 
+* _keeping medical history_
+* _record of procedures, tests and  execution of them._
