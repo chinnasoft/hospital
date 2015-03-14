@@ -1,5 +1,9 @@
-#summary DB Diagram
+#summary Diagrams
 
 =DB Diagram =
 
 https://hospital.googlecode.com/svn/wiki_sourse/db_model/db_model.png
+
+=Process Diagram =
+
+https://hospital.googlecode.com/svn/wiki_sourse/db_model/proc_model.png
