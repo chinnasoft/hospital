@@ -1,0 +1,5 @@
+#summary DB Diagram
+
+=DB Diagram =
+
+https://hospital.googlecode.com/svn/wiki_sourse/db_model/db_model1.2.png
