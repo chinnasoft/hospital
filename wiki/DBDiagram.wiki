@@ -1,9 +1,11 @@
-#summary Diagrams
-
+#summary Project model.
+ File with SQL command to create tables and keys of DB : [https://hospital.googlecode.com/svn/wiki_sourse/db_model/db_create_SQL.sql db_create_SQL.sql]
 =DB Diagram =
 
 https://hospital.googlecode.com/svn/wiki_sourse/db_model/db_model.png
 
+
+
 =Process Diagram =
 
-https://hospital.googlecode.com/svn/wiki_sourse/db_model/proc_model.png
+https://hospital.googlecode.com/svn/wiki_sourse/db_model/proc_model_en.png
