@@ -5,6 +5,6 @@ _Hospital or sanatorium staff._
 = The main features: =
   * _patient recording_ 
   * _keeping medical history_
-  * _patient cure control_
-  * _personal conferens organization_
-  * _record of procedures, tests and  execution of them._
+  * _cure control_
+  * _personal conference organization_
+  * _record of procedures, tests and results of them. execution control._
