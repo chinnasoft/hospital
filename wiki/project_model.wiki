@@ -10,4 +10,4 @@ https://hospital.googlecode.com/svn/wiki_sourse/db_model/db_model.png
 
 =Process Diagram =
 
-https://hospital.googlecode.com/svn/wiki_sourse/db_model/proc_model_en.png
+https://hospital.googlecode.com/svn/wiki_sourse/db_model/proc_model_en.PNG
