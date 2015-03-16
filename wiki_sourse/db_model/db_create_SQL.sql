@@ -32,8 +32,7 @@ CREATE TABLE conferense (
   con_date_time TIMESTAMP   NOT NULL ,
   day_order TEXT   NOT NULL ,
   con_lvl INTEGER    ,
-  con_lvl_type INTEGER      ,
-PRIMARY KEY(id));
+ PRIMARY KEY(id));
 
 
 
