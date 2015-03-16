@@ -151,6 +151,9 @@ CREATE TABLE prescribe (
   res_value TEXT    ,
   res_dt TIMESTAMP    ,
   res_personal_id INTEGER   NOT NULL   ,
+  activate_dt timestamp without time zone NOT NULL,
+  period_group_id integer NOT NULL,
+  
 PRIMARY KEY(id)    ,
   FOREIGN KEY(checkup_id)
     REFERENCES checkup(id),
