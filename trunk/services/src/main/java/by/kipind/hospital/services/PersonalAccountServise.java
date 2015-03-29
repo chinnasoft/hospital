@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import by.kipind.hospital.dataaccess.PersonalDAO;
+import by.kipind.hospital.datamodel.Patient;
 import by.kipind.hospital.datamodel.Personal;
+import by.kipind.hospital.services.intrfc.IPesonalAccountService;
 
 @Service
 public class PersonalAccountServise implements IPesonalAccountService {
@@ -16,10 +18,12 @@ public class PersonalAccountServise implements IPesonalAccountService {
 	@Inject
 	private PersonalDAO personalDAO;
 
+	//TODO: 
+
 	@Override
-	public int newPersonal(Personal personal) {
+	public int newPatient(Patient patient) {
 		// TODO Auto-generated method stub
-		return personalDAO.NewPersonal(personal);
+		return 0;
 	}
 
 }

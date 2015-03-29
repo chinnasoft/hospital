@@ -2,6 +2,7 @@ package by.kipind.hospital.dataaccess;
 
 import org.springframework.stereotype.Repository;
 
+import by.kipind.hospital.dataaccess.intrfc.IPersonalDAO;
 import by.kipind.hospital.datamodel.Personal;
 
 @Repository

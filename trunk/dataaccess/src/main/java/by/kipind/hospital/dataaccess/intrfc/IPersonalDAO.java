@@ -1,4 +1,4 @@
-package by.kipind.hospital.dataaccess;
+package by.kipind.hospital.dataaccess.intrfc;
 
 import by.kipind.hospital.datamodel.Personal;
 
