@@ -17,7 +17,7 @@ public class PersonalServiceTest {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PersonalServiceTest.class);
 
 	@Inject // выполняем DI
-	private PersonalAccountServise PersonalService;
+	private PatientAccountServise PersonalService;
 
 	@Test
 	public void PersonalServiceDITest() {
