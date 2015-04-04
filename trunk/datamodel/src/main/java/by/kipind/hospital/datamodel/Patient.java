@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import by.kipind.hospital.datamodel.enums.HumanSex;
+import by.kipind.hospital.datamodel.enam.HumanSex;
 
 public class Patient {
 	@Id

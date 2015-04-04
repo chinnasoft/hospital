@@ -2,16 +2,31 @@ package by.kipind.hospital.datamodel;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Visit {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column 
+	private Ward ward;
+	@Column 
 	private Patient patient;
-	private Date start_dt;
+	@Column 
+	private Date startDt;
+	@Column 
 	private Date endDt;
+	@Column 
 	private String firstDs;
+	@Column 
 	private String lastDs;
-	private Integer carentWard;
+	@Column 
 	private Integer importantFlag;
-	private Integer dischargeFlag;
+	@Column 
+	private Integer dischargeFlag; //выписка
 	
 	public Long getId() {
 		return id;
@@ -25,12 +40,7 @@ public class Visit {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	public Date getStart_dt() {
-		return start_dt;
-	}
-	public void setStart_dt(Date start_dt) {
-		this.start_dt = start_dt;
-	}
+	
 	public Date getEndDt() {
 		return endDt;
 	}
@@ -49,12 +59,7 @@ public class Visit {
 	public void setLastDs(String lastDs) {
 		this.lastDs = lastDs;
 	}
-	public Integer getCarentWard() {
-		return carentWard;
-	}
-	public void setCarentWard(Integer carentWard) {
-		this.carentWard = carentWard;
-	}
+	
 	public Integer getImportantFlag() {
 		return importantFlag;
 	}
@@ -66,6 +71,18 @@ public class Visit {
 	}
 	public void setDischargeFlag(Integer dischargeFlag) {
 		this.dischargeFlag = dischargeFlag;
+	}
+	public Ward getWard() {
+		return ward;
+	}
+	public void setWard(Ward ward) {
+		this.ward = ward;
+	}
+	public Date getStartDt() {
+		return startDt;
+	}
+	public void setStartDt(Date startDt) {
+		this.startDt = startDt;
 	}
 
 }

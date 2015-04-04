@@ -2,12 +2,22 @@ package by.kipind.hospital.datamodel;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Conferense {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column 
 	private Date conDateTime;
+	@Column 
 	private String dayOrder;
+	@Column 
 	private Integer conLvl;
-	private Integer conLvlType;
+	
 	
 	
 	
@@ -35,10 +45,5 @@ public class Conferense {
 	public void setConLvl(Integer conLvl) {
 		this.conLvl = conLvl;
 	}
-	public Integer getConLvlType() {
-		return conLvlType;
-	}
-	public void setConLvlType(Integer conLvlType) {
-		this.conLvlType = conLvlType;
-	}
+	
 }

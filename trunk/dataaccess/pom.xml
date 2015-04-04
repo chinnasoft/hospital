@@ -33,7 +33,6 @@
 			<artifactId>spring-context-support</artifactId>
 		</dependency>
 
-
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>

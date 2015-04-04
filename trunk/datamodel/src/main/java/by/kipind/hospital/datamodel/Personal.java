@@ -1,15 +1,31 @@
 package by.kipind.hospital.datamodel;
 
-public class Personal {
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class Personal {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column
 	private String firstName;
+	@Column
 	private String secondName;
-	private Integer tabNumber;
+	@Column
+	private Integer tabelNumber;
+	@Column
 	private String pass;
-	private Prof prof;
+	@Column
 	private Boolean delMarker;
+	@Column
 	private Boolean conMarker;
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	private Prof prof;
 
 	public Long getId() {
 		return id;
@@ -35,15 +51,7 @@ public class Personal {
 		this.secondName = secondName;
 	}
 
-	public Integer getTabNumber() {
-		return tabNumber;
-	}
-
-	public void setTabNumber(Integer tabNumber) {
-		this.tabNumber = tabNumber;
-	}
-
-	public String getPass() {
+		public String getPass() {
 		return pass;
 	}
 
@@ -73,6 +81,14 @@ public class Personal {
 
 	public Prof getProf() {
 		return prof;
+	}
+
+	public Integer getTabelNumber() {
+		return tabelNumber;
+	}
+
+	public void setTabelNumber(Integer tabelNumber) {
+		this.tabelNumber = tabelNumber;
 	}
 
 }
