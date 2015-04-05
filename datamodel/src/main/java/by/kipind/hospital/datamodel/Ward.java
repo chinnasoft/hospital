@@ -1,17 +1,29 @@
 package by.kipind.hospital.datamodel;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
 
-public class Ward {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column 
+
+@Entity
+public class Ward extends AbstractEntity{
+	
+	@Column
 	private Integer wardNum;
-	@Column 
+	@Column
 	private Integer comfortLvl;
 	
+	
+	public Integer getWardNum() {
+		return wardNum;
+	}
+	public void setWardNum(Integer wardNum) {
+		this.wardNum = wardNum;
+	}
+	public Integer getComfortLvl() {
+		return comfortLvl;
+	}
+	public void setComfortLvl(Integer comfortLvl) {
+		this.comfortLvl = comfortLvl;
+	}
+
 }

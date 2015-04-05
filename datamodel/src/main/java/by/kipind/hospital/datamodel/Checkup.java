@@ -3,17 +3,17 @@ package by.kipind.hospital.datamodel;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
-public class Checkup {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column
+@Entity
+public class Checkup extends AbstractEntity {
+
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Personal.class)
 	private Personal personal;
-	@Column
+
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Visit.class)
 	private Visit visit;
 	@Column
 	private Date chDt;
@@ -21,14 +21,6 @@ public class Checkup {
 	private String interview;
 	@Column
 	private String diagnosis;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Personal getPersonal() {
 		return personal;
