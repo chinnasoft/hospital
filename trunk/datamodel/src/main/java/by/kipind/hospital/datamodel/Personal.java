@@ -1,16 +1,15 @@
 package by.kipind.hospital.datamodel;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-public class Personal {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+import by.kipind.hospital.datamodel.enam.EProf;
+
+@Entity
+public class Personal extends AbstractEntity {
+
 	@Column
 	private String firstName;
 	@Column
@@ -25,15 +24,7 @@ public class Personal {
 	private Boolean conMarker;
 	@Column
 	@Enumerated(EnumType.ORDINAL)
-	private Prof prof;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private EProf prof;
 
 	public String getFirstName() {
 		return firstName;
@@ -51,7 +42,7 @@ public class Personal {
 		this.secondName = secondName;
 	}
 
-		public String getPass() {
+	public String getPass() {
 		return pass;
 	}
 
@@ -75,11 +66,11 @@ public class Personal {
 		this.conMarker = conMarker;
 	}
 
-	public void setProf(Prof prof) {
+	public void setProf(EProf prof) {
 		this.prof = prof;
 	}
 
-	public Prof getProf() {
+	public EProf getProf() {
 		return prof;
 	}
 

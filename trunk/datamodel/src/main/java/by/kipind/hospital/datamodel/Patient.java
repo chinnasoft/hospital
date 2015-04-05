@@ -3,18 +3,14 @@ package by.kipind.hospital.datamodel;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-import by.kipind.hospital.datamodel.enam.HumanSex;
+import by.kipind.hospital.datamodel.enam.EHumanSex;
 
-public class Patient {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Entity
+public class Patient extends AbstractEntity {
 	@Column
 	private String socialNumber;
 	@Column
@@ -27,15 +23,7 @@ public class Patient {
 	private String address;
 	@Column
 	@Enumerated(EnumType.ORDINAL)
-	private HumanSex sex;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private EHumanSex sex;
 
 	public String getSocialNumber() {
 		return socialNumber;
@@ -77,11 +65,11 @@ public class Patient {
 		this.address = address;
 	}
 
-	public HumanSex getSex() {
+	public EHumanSex getSex() {
 		return sex;
 	}
 
-	public void setSex(HumanSex sex) {
+	public void setSex(EHumanSex sex) {
 		this.sex = sex;
 	}
 

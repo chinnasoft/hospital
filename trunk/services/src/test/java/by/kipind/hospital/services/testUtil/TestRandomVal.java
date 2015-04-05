@@ -1,4 +1,4 @@
-package by.kipind.hospital.services;
+package by.kipind.hospital.services.testUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

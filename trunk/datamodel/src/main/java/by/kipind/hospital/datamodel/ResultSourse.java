@@ -1,34 +1,30 @@
 package by.kipind.hospital.datamodel;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 
-public class ResultSourse {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column 
+@Entity
+public class ResultSourse extends AbstractEntity {
+
+	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Prescribe.class)
 	private Prescribe prescribe;
-	@Column 
+	@Column
 	private String sourseLink;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+
 	public Prescribe getPrescribe() {
 		return prescribe;
 	}
+
 	public void setPrescribe(Prescribe prescribe) {
 		this.prescribe = prescribe;
 	}
+
 	public String getSourseLink() {
 		return sourseLink;
 	}
+
 	public void setSourseLink(String sourseLink) {
 		this.sourseLink = sourseLink;
 	}

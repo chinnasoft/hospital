@@ -22,7 +22,7 @@
 	<Loggers>
 
 		<Logger name="by.kipind.hospital.services" level="DEBUG"
-			additivity="false">
+			additivity="true">
 			<AppenderRef ref="LOGFILE" />
 		</Logger>
 
@@ -30,7 +30,7 @@
 		<!-- <Logger name="by.dzhivushko.sample" level="DEBUG"> <AppenderRef ref="LOGFILE" 
 			/> </Logger> -->
 
-		<Root level="info">
+		<Root level="INFO">
 			<AppenderRef ref="CONSOLE" />
 		</Root>
 
