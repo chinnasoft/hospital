@@ -12,18 +12,18 @@ import by.kipind.hospital.datamodel.Product;
 
 //import by.dzhvisuhko.sample.datamodel.Product_;
 
-public class ProductServiceTest {
+public class VisitServiceTest {
 
 	private static final Logger LOGGER = LoggerFactory
-			.getLogger(ProductServiceTest.class);
+			.getLogger(VisitServiceTest.class);
 
 	@Inject
-	private IProductService productService;
+	private IVisitService visitService;
 
 	@Before
 	public void cleanUpData() {
 		LOGGER.info("Instance of ProductService is injected. Class is: {}",
-				productService.getClass().getName());
+				visitService.getClass().getName());
 		// productService.deleteAll();
 	}
 
@@ -32,7 +32,7 @@ public class ProductServiceTest {
 		// Product product = createProduct();
 		// productService.saveOrUpdate(product);
 
-		Product productFromDb = productService.get(2l);
+		Product productFromDb = visitService.get(2l);
 		Assert.assertNotNull(productFromDb);
 		/*
 		 * Assert.assertEquals(productFromDb.getName(), product.getName()); //

@@ -16,9 +16,8 @@ public class TestRandomVal {
 
 	private final static Random random = new Random();
 	private static final int RANDOM_STRING_SIZE = 7;
-	
-	protected static final RandomData RANDOM_DATA = new RandomDataImpl();
 
+	protected static final RandomData RANDOM_DATA = new RandomDataImpl();
 
 	public static String randomString() {
 		return RandomStringUtils.randomAlphabetic(RANDOM_STRING_SIZE);
@@ -80,8 +79,7 @@ public class TestRandomVal {
 		final int year = randBetween(1900, 2014);
 		final GregorianCalendar gc = new GregorianCalendar();
 		gc.set(Calendar.YEAR, year);
-		final int dayOfYear = randBetween(1,
-				gc.getActualMaximum(Calendar.DAY_OF_YEAR));
+		final int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
 		gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
 		return gc.getTime();
 	}

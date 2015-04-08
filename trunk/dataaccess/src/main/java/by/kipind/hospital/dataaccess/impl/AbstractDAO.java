@@ -5,7 +5,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -50,36 +53,39 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 
 	@Override
 	public void delete(List<ID> ids) {
-		em.createQuery(
-				String.format("delete from %s e where e.id in (:ids)",
-						getEntityClass().getSimpleName()))
-				.setParameter("ids", ids).executeUpdate();
+		if (ids.size() > 0) {
+			Query query = em.createQuery(String.format("delete from %s e where e.id in (:ids)", getEntityClass().getSimpleName()));
+			query.setParameter("ids", ids);
+			query.executeUpdate();
+		} else {
+			LOGGER.warn("Attempt to delete objects by empty parametr list", em.hashCode(), getClass().getName());
+		}
 	}
 
 	@Override
 	public void deleteAll() {
-		final Query q1 = em.createQuery("delete from "
-				+ getEntityClass().getSimpleName());
+		final Query q1 = em.createQuery("delete from " + getEntityClass().getSimpleName());
 		q1.executeUpdate();
 		em.flush();
 	}
 
 	@Override
 	public List<Entity> getAll() {
-		final CriteriaQuery<Entity> query = em.getCriteriaBuilder()
-				.createQuery(getEntityClass());
-		query.from(getEntityClass());
-		final List<Entity> lst = em.createQuery(query).getResultList();
-		return lst;
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+		CriteriaQuery<Entity> criteria = cBuilder.createQuery(getEntityClass());
+		Root<Entity> root = criteria.from(getEntityClass());
+
+		criteria.select(root);
+
+		TypedQuery<Entity> query = getEm().createQuery(criteria);
+		List<Entity> results = query.getResultList();
+		return results;
 	}
 
-	
-	
-	
 	@PersistenceContext
 	protected void setEntityManager(final EntityManager em) {
-		LOGGER.info("Set EM {} to class {}", em.hashCode(), getClass()
-				.getName());
+		LOGGER.info("Set EM {} to class {}", em.hashCode(), getClass().getName());
 		this.em = em;
 	}
 

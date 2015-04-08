@@ -21,11 +21,13 @@
 
 	<Loggers>
 
-		<Logger name="by.kipind.hospital.services" level="DEBUG"
-			additivity="true">
+		<Logger name="by.kipind.hospital.dataaccess" level="WARN" additivity="true">
 			<AppenderRef ref="LOGFILE" />
 		</Logger>
 
+		<Logger name="by.kipind.hospital" level="INFO" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</Logger>
 
 		<!-- <Logger name="by.dzhivushko.sample" level="DEBUG"> <AppenderRef ref="LOGFILE" 
 			/> </Logger> -->
