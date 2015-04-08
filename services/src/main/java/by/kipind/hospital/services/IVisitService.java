@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import by.kipind.hospital.datamodel.Product;
 
 
-public interface IProductService {
+public interface IVisitService {
 
    // List<Product> getAllProducts(SingularAttribute<Product, ?> attr, boolean ascending, int startRecord, int pageSize);
 
