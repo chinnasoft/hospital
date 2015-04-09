@@ -14,7 +14,7 @@ public interface IPatientService {
 	void saveOrUpdate(Patient patient);
 
 	@Transactional
-	void delete(Patient Patient);
+	void delete(Patient patient);
 
 	@Transactional
 	void delete(List<Patient> ids);

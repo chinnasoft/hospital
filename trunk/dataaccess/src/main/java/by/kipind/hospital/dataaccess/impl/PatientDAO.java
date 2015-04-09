@@ -57,4 +57,5 @@ public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDA
 	 * Query query = getEm().createQuery(update); query.executeUpdate(); return
 	 * entity; }
 	 */
+
 }
