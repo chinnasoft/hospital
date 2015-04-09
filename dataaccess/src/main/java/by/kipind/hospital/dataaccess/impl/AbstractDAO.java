@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
@@ -26,6 +27,20 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 	protected AbstractDAO(final Class<Entity> entityClass) {
 		Validate.notNull(entityClass, "entityClass could not be a null");
 		this.entityClass = entityClass;
+	}
+
+	@PersistenceContext
+	protected void setEntityManager(final EntityManager em) {
+		LOGGER.info("Set EM {} to class {}", em.hashCode(), getClass().getName());
+		this.em = em;
+	}
+
+	private Class<Entity> getEntityClass() {
+		return entityClass;
+	}
+
+	public EntityManager getEm() {
+		return em;
 	}
 
 	@Override
@@ -48,15 +63,6 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 
 	@Override
 	public void delete(final ID key) {
-
-		/*
-		 * CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
-		 * CriteriaDelete<Entity> delete =
-		 * cBuilder.createCriteriaDelete(getEntityClass()); Root<Entity> root =
-		 * delete.from(getEntityClass());
-		 * delete.where(cBuilder.equal(delete.get(),1l)); Query query =
-		 * getEm().createQuery(delete); query.executeUpdate();
-		 */
 		em.remove(em.find(getEntityClass(), key));
 	}
 
@@ -74,17 +80,11 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 
 	@Override
 	public void deleteAll() {
-		/*
-		 * CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
-		 * CriteriaDelete<Entity> criteria =
-		 * cBuilder.createCriteriaDelete(getEntityClass()); Root<Entity> root =
-		 * criteria.from(getEntityClass());
-		 * 
-		 * Query query = getEm().createQuery(criteria); query.executeUpdate();
-		 */
-		final Query q1 = em.createQuery("delete from " + getEntityClass().getSimpleName());
+
+		final Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
 		q1.executeUpdate();
 		em.flush();
+
 	}
 
 	@Override
@@ -100,18 +100,15 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 		return results;
 	}
 
-	@PersistenceContext
-	protected void setEntityManager(final EntityManager em) {
-		LOGGER.info("Set EM {} to class {}", em.hashCode(), getClass().getName());
-		this.em = em;
-	}
-
-	private Class<Entity> getEntityClass() {
-		return entityClass;
-	}
-
-	public EntityManager getEm() {
-		return em;
+	@Override
+	public List<Entity> getAllByField(final SingularAttribute<? super Entity, ?> attribute, final Object value) {
+		Validate.notNull(value, "Search attributes can't be empty. Attribute: " + attribute.getName());
+		final CriteriaBuilder builder = em.getCriteriaBuilder();
+		final CriteriaQuery<Entity> criteria = builder.createQuery(getEntityClass());
+		final Root<Entity> root = criteria.from(getEntityClass());
+		criteria.select(root).distinct(true);
+		criteria.where(builder.equal(root.get(attribute), value));
+		return em.createQuery(criteria).getResultList();
 	}
 
 }
