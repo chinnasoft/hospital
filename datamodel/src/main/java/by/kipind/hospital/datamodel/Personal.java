@@ -13,8 +13,6 @@ public class Personal extends AbstractEntity {
 	@Column
 	private String firstName;
 	@Column
-	private String secondName;
-	@Column
 	private Integer tabelNumber;
 	@Column
 	private String pass;
@@ -25,6 +23,8 @@ public class Personal extends AbstractEntity {
 	@Column
 	@Enumerated(EnumType.ORDINAL)
 	private EProf prof;
+	@Column
+	private String secondName;
 
 	public String getFirstName() {
 		return firstName;
