@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.IPatientDAO;
 import by.kipind.hospital.datamodel.Patient;
+import by.kipind.hospital.datamodel.Patient_;
 
 @Repository
 public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDAO {
@@ -23,15 +24,37 @@ public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDA
 	public List<Patient> getAllPatientsBySex(Integer sex) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
-		CriteriaQuery<Patient> select = cBuilder.createQuery(Patient.class);
-		Root<Patient> root = select.from(Patient.class);
+		CriteriaQuery<Patient> criteriaQuery = cBuilder.createQuery(Patient.class);
+		Root<Patient> patient = criteriaQuery.from(Patient.class);
 
-		select.select(root);
+		criteriaQuery.where(cBuilder.equal(patient.get(Patient_.sex), sex));
 
-		root.where(cBuilder.equal(select.get(Patient_.name), sex));
-
-		TypedQuery<Patient> query = getEm().createQuery(select);
+		TypedQuery<Patient> query = getEm().createQuery(criteriaQuery);
 		List<Patient> results = query.getResultList();
 		return results;
 	}
+
+	/*
+	 * @Override public void deleteAll() {
+	 * 
+	 * CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+	 * CriteriaDelete<Patient> delete =
+	 * cBuilder.createCriteriaDelete(Patient.class); Root<Patient> patient =
+	 * delete.from(Patient.class);
+	 * 
+	 * Query query = getEm().createQuery(delete); int rowsDel =
+	 * query.executeUpdate();
+	 * 
+	 * }
+	 * 
+	 * @Override public Patient update(Patient entity) { CriteriaBuilder
+	 * cBuilder = getEm().getCriteriaBuilder();
+	 * 
+	 * CriteriaUpdate update = cBuilder.createCriteriaUpdate(Patient.class);
+	 * Root patient = update.from(Patient.class); update.set("sex",
+	 * entity.getSex());
+	 * 
+	 * Query query = getEm().createQuery(update); query.executeUpdate(); return
+	 * entity; }
+	 */
 }

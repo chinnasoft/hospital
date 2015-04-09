@@ -22,8 +22,8 @@ public class Prescribe extends AbstractEntity {
 	private Date resDt;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Personal.class)
 	private Personal resPersonal;
-	@OneToMany(fetch = FetchType.LAZY, targetEntity = ResultSourse.class)
-	private Set<ResultSourse> resSourseList;
+	@OneToMany(fetch = FetchType.LAZY, targetEntity = ResultSource.class)
+	private Set<ResultSource> resSourseList;
 
 	public Checkup getCheckup() {
 		return checkup;
@@ -65,11 +65,11 @@ public class Prescribe extends AbstractEntity {
 		this.resPersonal = resPersonal;
 	}
 
-	public Set<ResultSourse> getResSourseList() {
+	public Set<ResultSource> getResSourseList() {
 		return resSourseList;
 	}
 
-	public void setResSourseList(Set<ResultSourse> resSourseList) {
+	public void setResSourseList(Set<ResultSource> resSourseList) {
 		this.resSourseList = resSourseList;
 	}
 
