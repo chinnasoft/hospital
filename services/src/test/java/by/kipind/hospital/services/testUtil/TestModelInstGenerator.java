@@ -1,9 +1,13 @@
 package by.kipind.hospital.services.testUtil;
 
+import java.util.Set;
+
 import by.kipind.hospital.datamodel.Patient;
 import by.kipind.hospital.datamodel.Personal;
+import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.datamodel.enam.EHumanSex;
 import by.kipind.hospital.datamodel.enam.EProf;
+import by.kipind.hospital.datamodel.enam.EWardComfort;
 
 public abstract class TestModelInstGenerator extends TestRandomVal {
 
@@ -28,5 +32,13 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 		personal.setConMarker(randomBoolean());
 		personal.setProf(EProf.values()[(randomInteger(0, EProf.values().length - 1))]);
 		return personal;
+	}
+
+	public static Ward getWard(Set<Personal> pers) {
+		Ward ward = new Ward();
+		ward.setWardNum(randomInteger(1, 99999));
+		ward.setComfortLvl(EWardComfort.values()[(randomInteger(0, EWardComfort.values().length - 1))]);
+		ward.setPersonal(pers);
+		return ward;
 	}
 }

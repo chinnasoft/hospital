@@ -6,11 +6,15 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
+
+import by.kipind.hospital.datamodel.Personal;
 
 public class TestRandomVal {
 
@@ -86,6 +90,14 @@ public class TestRandomVal {
 
 	public static int randBetween(final int start, final int end) {
 		return start + (int) Math.round(Math.random() * (end - start));
+	}
+
+	public static Set<Personal> randomPersonalSet() {
+		final Set<Personal> result = new HashSet<Personal>();
+		for (int i = 1; i <= randomInteger(2, 5); i++) {
+			result.add(new Personal());
+		}
+		return result;
 	}
 
 }

@@ -11,7 +11,7 @@ public interface IPersonalService {
 	Personal getById(Long id);
 
 	@Transactional
-	void saveOrUpdate(Personal personal);
+	Personal saveOrUpdate(Personal personal);
 
 	@Transactional
 	void delete(Personal personal);
