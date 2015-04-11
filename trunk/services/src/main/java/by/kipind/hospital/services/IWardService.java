@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
 
 public interface IWardService {
@@ -11,16 +12,16 @@ public interface IWardService {
 	Ward getById(Long id);
 
 	@Transactional
-	void saveOrUpdate(Ward visit);
+	void saveOrUpdate(Ward ward);
 
 	@Transactional
-	void delete(Ward visit);
+	void delete(Ward ward);
 
 	@Transactional
-	void delete(List<Ward> ids);
-
-	@Transactional
+	// Только для тестирования
 	void deleteAll();
 
 	List<Ward> getAllWards();
+
+	List<Ward> getAllPersonalWards(Personal pers);
 }

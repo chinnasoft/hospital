@@ -1,4 +1,5 @@
 package by.kipind.hospital.datamodel;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

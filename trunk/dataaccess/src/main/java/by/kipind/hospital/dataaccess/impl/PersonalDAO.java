@@ -101,7 +101,9 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 		Root<Personal> personal = criteriaQuery.from(Personal.class);
 
 		criteriaQuery.select(personal);
+
 		criteriaQuery.where(cBuilder.equal(personal.get(Personal_.delMarker), false));
+
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		List<Personal> results = query.getResultList();
 		return results;

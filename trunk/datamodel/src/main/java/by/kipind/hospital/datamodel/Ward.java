@@ -4,10 +4,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import by.kipind.hospital.datamodel.enam.EWardComfort;
 
 @Entity
 public class Ward extends AbstractEntity {
@@ -15,7 +19,8 @@ public class Ward extends AbstractEntity {
 	@Column
 	private Integer wardNum;
 	@Column
-	private Integer comfortLvl;
+	@Enumerated(EnumType.ORDINAL)
+	private EWardComfort comfortLvl;
 	@JoinTable(name = "ward_2_personal", joinColumns = { @JoinColumn(name = "ward_id") }, inverseJoinColumns = { @JoinColumn(name = "personal_id") })
 	@ManyToMany(targetEntity = Personal.class, fetch = FetchType.LAZY)
 	private Set<Personal> personal;
@@ -28,20 +33,20 @@ public class Ward extends AbstractEntity {
 		this.wardNum = wardNum;
 	}
 
-	public Integer getComfortLvl() {
-		return comfortLvl;
-	}
-
-	public void setComfortLvl(Integer comfortLvl) {
-		this.comfortLvl = comfortLvl;
-	}
-
 	public Set<Personal> getPersonal() {
 		return personal;
 	}
 
 	public void setPersonal(Set<Personal> personal) {
 		this.personal = personal;
+	}
+
+	public EWardComfort getComfortLvl() {
+		return comfortLvl;
+	}
+
+	public void setComfortLvl(EWardComfort comfortLvl) {
+		this.comfortLvl = comfortLvl;
 	}
 
 }

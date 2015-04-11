@@ -36,11 +36,11 @@ public class PersonalService implements IPersonalService {
 	}
 
 	@Override
-	public void saveOrUpdate(Personal personal) {
+	public Personal saveOrUpdate(Personal personal) {
 		if (personal.getId() == null) {
-			personalDAO.insert(personal);
+			return (Personal) personalDAO.insert(personal);
 		} else {
-			personalDAO.update(personal);
+			return (Personal) personalDAO.update(personal);
 		}
 
 	}

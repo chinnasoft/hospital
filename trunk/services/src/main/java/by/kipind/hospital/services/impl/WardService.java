@@ -1,6 +1,5 @@
 package by.kipind.hospital.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import by.kipind.hospital.dataaccess.IWardDAO;
+import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.services.IWardService;
 
@@ -53,19 +53,6 @@ public class WardService implements IWardService {
 	}
 
 	@Override
-	public void delete(List<Ward> wardsList) {
-		LOGGER.debug("Remove List: {}");
-
-		List<Long> idList = new ArrayList<Long>();
-
-		for (Ward ward : wardsList) {
-			idList.add(ward.getId());
-		}
-		WardDAO.delete(idList);
-
-	}
-
-	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
 		WardDAO.deleteAll();
@@ -75,6 +62,12 @@ public class WardService implements IWardService {
 	public List<Ward> getAllWards() {
 		return WardDAO.getAll();
 
+	}
+
+	@Override
+	public List<Ward> getAllPersonalWards(Personal pers) {
+
+		return WardDAO.getAllPersonalWards(pers);
 	}
 
 }
