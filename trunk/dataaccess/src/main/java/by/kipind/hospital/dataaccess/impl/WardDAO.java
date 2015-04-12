@@ -29,6 +29,7 @@ public class WardDAO extends AbstractDAO<Long, Ward> implements IWardDAO {
 
 		Root<Ward> ward = criteriaQuery.from(Ward.class);
 		criteriaQuery.select(ward);
+
 		ward.fetch(Ward_.personal);
 		criteriaQuery.distinct(true);
 
@@ -40,6 +41,30 @@ public class WardDAO extends AbstractDAO<Long, Ward> implements IWardDAO {
 
 	@Override
 	public Ward getById(Long id) {
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+		CriteriaQuery<Ward> criteriaQuery = cBuilder.createQuery(Ward.class);
+
+		Root<Ward> ward = criteriaQuery.from(Ward.class);
+
+		criteriaQuery.select(ward);
+		criteriaQuery.where(cBuilder.equal(ward.get(Ward_.id), id));
+
+		/*
+		 * ward.fetch(Ward_.personal); criteriaQuery.distinct(true);
+		 */
+		TypedQuery<Ward> query = getEm().createQuery(criteriaQuery);
+		try {
+			Ward result = query.getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
+
+		// return em.find(getEntityClass(), id);
+	}
+
+	@Override
+	public Ward getByIdEager(Long id) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Ward> criteriaQuery = cBuilder.createQuery(Ward.class);
 

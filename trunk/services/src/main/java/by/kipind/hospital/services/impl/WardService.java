@@ -63,4 +63,9 @@ public class WardService implements IWardService {
 
 	}
 
+	@Override
+	public Ward getByIdEager(Long id) {
+		return WardDAO.getByIdEager(id);
+	}
+
 }

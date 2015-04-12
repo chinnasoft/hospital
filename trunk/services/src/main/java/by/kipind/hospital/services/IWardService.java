@@ -17,10 +17,11 @@ public interface IWardService {
 	void delete(Ward ward);
 
 	@Transactional
-	// Только для тестирования
-	void deleteAll();
+	void deleteAll();// Только для тестирования
 
 	List<Ward> getAllWards();
+
+	Ward getByIdEager(Long id);
 
 	// ----
 

@@ -51,7 +51,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 			 * } getEm().flush();
 			 */
 
-			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.del_flag=:delMArk where p.id in (:ids) ");
+			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.delMarker=:delMark where p.id in (:ids) ");
 			Query eleteWithFlagQuery = getEm().createQuery(qStr); //
 			eleteWithFlagQuery.setParameter("ids", ids);
 			eleteWithFlagQuery.setParameter("delMark", true);
@@ -83,7 +83,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		criteriaQuery.where(cBuilder.and(cBuilder.equal(personal.get(Personal_.id), id), cBuilder.equal(personal.get(Personal_.delMarker), false)));
 
-		personal.fetch(Personal_.wards);
+		// personal.fetch(Personal_.wards);
 
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		Personal results;

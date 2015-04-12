@@ -41,7 +41,14 @@ public abstract class TestRandomVal {
 	}
 
 	public static int randomInteger(final int lower, final int upper) {
-		return RANDOM_DATA.nextInt(lower, upper);
+		int res;
+		if (lower == upper) {
+			res = lower;
+		} else {
+			res = RANDOM_DATA.nextInt(lower, upper);
+		}
+
+		return res;
 	}
 
 	public static boolean randomBoolean() {
@@ -62,6 +69,11 @@ public abstract class TestRandomVal {
 
 	}
 
+	public static int randomBetween(int[] arr) {
+
+		return arr[randomInteger(0, arr.length - 1)];
+	}
+
 	public static <T> T randomFromCollection(final Collection<T> all) {
 		final int size = all.size();
 		final int item = new Random().nextInt(size);
@@ -78,7 +90,7 @@ public abstract class TestRandomVal {
 	public static <T> Set<T> randomSubCollection(final Collection<T> all, Integer subSize) {
 		final int size = all.size();
 		if (subSize.equals(null)) {
-			subSize = randBetween(1, size);
+			subSize = randomInteger(1, size);
 		}
 		Set<T> subCollection = new HashSet<T>();
 		for (int i = 1; i <= subSize; i++) {
@@ -88,10 +100,10 @@ public abstract class TestRandomVal {
 	}
 
 	public static Date randomDate() {
-		final int year = randBetween(1900, 2014);
+		final int year = randomInteger(1900, 2014);
 		final GregorianCalendar gc = new GregorianCalendar();
 		gc.set(Calendar.YEAR, year);
-		final int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
+		final int dayOfYear = randomInteger(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
 		gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
 		return gc.getTime();
 	}
@@ -100,10 +112,6 @@ public abstract class TestRandomVal {
 
 		return DateUtils.addDays(Calendar.getInstance().getTime(), -1 * randomInteger(1, 99999));
 
-	}
-
-	public static int randBetween(final int start, final int end) {
-		return start + (int) Math.round(Math.random() * (end - start));
 	}
 
 	public static Set<Personal> randomPersonalSet() {

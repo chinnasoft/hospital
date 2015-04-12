@@ -26,5 +26,5 @@ public interface IPersonalService {
 	List<Personal> getAllPersonal();
 
 	// ------
-	List<Visit> GetPatients(Long persId);
+	List<Visit> GetLinkedPatients(Long personalId);
 }
