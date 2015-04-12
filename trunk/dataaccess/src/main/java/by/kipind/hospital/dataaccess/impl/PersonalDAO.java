@@ -16,6 +16,9 @@ import org.springframework.stereotype.Repository;
 import by.kipind.hospital.dataaccess.IPersonalDAO;
 import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Personal_;
+import by.kipind.hospital.datamodel.Visit;
+import by.kipind.hospital.datamodel.Visit_;
+import by.kipind.hospital.datamodel.enam.EDischargeStatus;
 
 @Repository
 public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersonalDAO {
@@ -40,23 +43,20 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 	public void delete(List<Long> ids) {
 
 		if (ids.size() > 0) {
-			Personal pers;
-			for (Long long1 : ids) {
-				pers = getEm().find(Personal.class, long1);
-				pers.setDelMarker(true);
-				getEm().merge(pers);
-
-			}
-			getEm().flush();
-
 			/*
-			 * Query delQuery = getEm().createQuery("DELETE from Personal ");
+			 * Personal pers; for (Long long1 : ids) { pers =
+			 * getEm().find(Personal.class, long1); pers.setDelMarker(true);
+			 * getEm().merge(pers);
 			 * 
-			 * Query updateQuery =
-			 * getEm().createQuery("UPDATE Personal SET tabel_number=1 "); //
-			 * query.setParameter("ids", ids); // query.setParameter("delMark",
-			 * true); updateQuery.executeUpdate();
+			 * } getEm().flush();
 			 */
+
+			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.del_flag=:delMArk where p.id in (:ids) ");
+			Query eleteWithFlagQuery = getEm().createQuery(qStr); //
+			eleteWithFlagQuery.setParameter("ids", ids);
+			eleteWithFlagQuery.setParameter("delMark", true);
+			eleteWithFlagQuery.executeUpdate();
+
 		} else {
 			LOGGER.warn("Attempt to delete objects by empty parametr list", getEm().hashCode(), Personal.class);
 		}
@@ -83,6 +83,8 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		criteriaQuery.where(cBuilder.and(cBuilder.equal(personal.get(Personal_.id), id), cBuilder.equal(personal.get(Personal_.delMarker), false)));
 
+		personal.fetch(Personal_.wards);
+
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		Personal results;
 		try {
@@ -106,6 +108,25 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		List<Personal> results = query.getResultList();
+		return results;
+	}
+
+	@Override
+	public List<Visit> GetAllOpenVisitByPersId(Long persId) {
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+		CriteriaQuery<Visit> criteriaQuery = cBuilder.createQuery(Visit.class);
+		Root<Visit> visit = criteriaQuery.from(Visit.class);
+		Root<Personal> personal = criteriaQuery.from(Personal.class);
+
+		criteriaQuery.select(visit);
+
+		criteriaQuery.where(cBuilder.and(cBuilder.isMember(visit.get(Visit_.ward), personal.get(Personal_.wards)), visit.get(Visit_.dischargeFlag)
+				.in(EDischargeStatus.CURING, EDischargeStatus.DENY)));
+
+		visit.fetch(Visit_.patient);
+
+		TypedQuery<Visit> query = getEm().createQuery(criteriaQuery);
+		List<Visit> results = query.getResultList();
 		return results;
 	}
 

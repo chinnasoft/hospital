@@ -36,11 +36,11 @@ public class PatientService implements IPatientService {
 	}
 
 	@Override
-	public void saveOrUpdate(Patient patient) {
+	public Patient saveOrUpdate(Patient patient) {
 		if (patient.getId() == null) {
-			patientDAO.insert(patient);
+			return patientDAO.insert(patient);
 		} else {
-			patientDAO.update(patient);
+			return patientDAO.update(patient);
 		}
 
 	}

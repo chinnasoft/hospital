@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import by.kipind.hospital.dataaccess.IWardDAO;
-import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.services.IWardService;
 
@@ -36,11 +35,11 @@ public class WardService implements IWardService {
 	}
 
 	@Override
-	public void saveOrUpdate(Ward ward) {
+	public Ward saveOrUpdate(Ward ward) {
 		if (ward.getId() == null) {
-			WardDAO.insert(ward);
+			return WardDAO.insert(ward);
 		} else {
-			WardDAO.update(ward);
+			return WardDAO.update(ward);
 		}
 
 	}
@@ -62,12 +61,6 @@ public class WardService implements IWardService {
 	public List<Ward> getAllWards() {
 		return WardDAO.getAll();
 
-	}
-
-	@Override
-	public List<Ward> getAllPersonalWards(Personal pers) {
-
-		return WardDAO.getAllPersonalWards(pers);
 	}
 
 }

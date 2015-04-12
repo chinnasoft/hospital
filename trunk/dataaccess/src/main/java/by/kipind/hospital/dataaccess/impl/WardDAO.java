@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.IWardDAO;
-import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.datamodel.Ward_;
 
@@ -36,27 +35,6 @@ public class WardDAO extends AbstractDAO<Long, Ward> implements IWardDAO {
 		TypedQuery<Ward> query = getEm().createQuery(criteriaQuery);
 
 		return query.getResultList();
-
-	}
-
-	@Override
-	public List<Ward> getAllPersonalWards(Personal pers) {
-		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
-		CriteriaQuery<Ward> criteriaQuery = cBuilder.createQuery(Ward.class);
-
-		Root<Ward> ward = criteriaQuery.from(Ward.class);
-		criteriaQuery.select(ward);
-
-		criteriaQuery.where(cBuilder.isMember(pers, ward.get(Ward_.personal)));
-
-		TypedQuery<Ward> query = getEm().createQuery(criteriaQuery);
-
-		try {
-			List<Ward> result = query.getResultList();
-			return result;
-		} catch (NoResultException e) {
-			return null;
-		}
 
 	}
 

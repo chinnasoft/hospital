@@ -1,6 +1,7 @@
 package by.kipind.hospital.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +12,10 @@ public interface IVisitService {
 	Visit getById(Long id);
 
 	@Transactional
-	void saveOrUpdate(Visit visit);
+	Visit saveOrUpdate(Visit visit);
+
+	@Transactional
+	Set<Visit> saveOrUpdate(Set<Visit> visits);
 
 	@Transactional
 	void delete(Visit visit);

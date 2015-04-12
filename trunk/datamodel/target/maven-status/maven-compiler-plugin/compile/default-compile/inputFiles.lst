@@ -1,5 +1,6 @@
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\enam\EHumanSex.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Checkup.java
+c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\enam\EWardComfort.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\AbstractEntity.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\dbUtil\SchemaNameAwareBasicDataSource.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\dbUtil\CustomNamingStrategy.java
@@ -8,6 +9,7 @@ c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamod
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Patient.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\enam\EProf.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Conferense.java
+c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\enam\DischargeStatus.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Ward.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Prescribe.java
 c:\javaWeb\workspace\hospital\datamodel\src\main\java\by\kipind\hospital\datamodel\Visit.java

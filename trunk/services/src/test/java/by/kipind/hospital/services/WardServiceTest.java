@@ -18,25 +18,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
+import by.kipind.hospital.services.testUtil.DBGenerator;
 import by.kipind.hospital.services.testUtil.TestModelInstGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
-public class WardServiceTest {
+public class WardServiceTest extends DBGenerator {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WardServiceTest.class);
 
 	@Inject
 	private IWardService wardService;
 	@Inject
-	private IPersonalService PersonalService;
+	private IPersonalService personalService;
 
 	@Before
 	public void cleanUpData() {
 		LOGGER.info("Instance of WardService is injected. Class is: {}", wardService.getClass().getName());
 		wardService.deleteAll();
-		PersonalService.deleteAll();
+		personalService.deleteAll();
+
+		startGener();
 	}
 
 	@Test
@@ -54,11 +57,11 @@ public class WardServiceTest {
 		int m = TestRandomVal.randomInteger(1, n);
 		for (int i = 1; i <= n; i++) {
 			if (i == m) {
-				existPers = PersonalService.saveOrUpdate(TestModelInstGenerator.getPersonal());
+				existPers = personalService.saveOrUpdate(TestModelInstGenerator.getPersonal());
 				pers.add(existPers);
 				continue;
 			}
-			pers.add(PersonalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
+			pers.add(personalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
 		}
 
 		Ward ward = TestModelInstGenerator.getWard(pers);
@@ -99,7 +102,7 @@ public class WardServiceTest {
 
 		int n = TestRandomVal.randomInteger(1, 50); //
 		for (int i = 1; i <= n; i++) {
-			pers.add(PersonalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
+			pers.add(personalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
 		}
 		int m = TestRandomVal.randomInteger(1, 10);
 		for (int i = 1; i <= m; i++) {
@@ -122,19 +125,17 @@ public class WardServiceTest {
 			Assert.assertEquals(1, 1);
 		}
 
-		Personal persWithWards = TestRandomVal.randomFromCollection(existPers);
-		wards.clear();
-		wards = wardService.getAllPersonalWards(persWithWards);
-		Assert.assertNotEquals(wards.size(), 0);
-		try {
-			// exception will be thrown because of lazy collection
-			Personal checkLazyPersonal2 = TestRandomVal.randomFromCollection(wards.get(TestRandomVal.randomInteger(0, wards.size()) - 1)
-					.getPersonal());
-			Assert.assertEquals(1, 2);
-		} catch (LazyInitializationException e) {
-			Assert.assertEquals(1, 1);
-		}
-
+		/*
+		 * Personal persWithWards =
+		 * TestRandomVal.randomFromCollection(existPers); wards.clear(); wards =
+		 * wardService.getAllPersonalWards(persWithWards);
+		 * Assert.assertNotEquals(wards.size(), 0); try { // exception will be
+		 * thrown because of lazy collection Personal checkLazyPersonal2 =
+		 * TestRandomVal
+		 * .randomFromCollection(wards.get(TestRandomVal.randomInteger(0,
+		 * wards.size()) - 1) .getPersonal()); Assert.assertEquals(1, 2); }
+		 * catch (LazyInitializationException e) { Assert.assertEquals(1, 1); }
+		 */
 	}
 
 }
