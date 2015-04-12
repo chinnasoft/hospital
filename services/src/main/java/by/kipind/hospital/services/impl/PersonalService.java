@@ -32,8 +32,8 @@ public class PersonalService implements IPersonalService {
 
 	@Override
 	public Personal getById(Long id) {
-		Personal entity = personalDAO.getById(id);
-		return entity;
+
+		return personalDAO.getById(id);
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class PersonalService implements IPersonalService {
 	}
 
 	@Override
-	public List<Visit> GetPatients(Long persId) {
+	public List<Visit> GetLinkedPatients(Long persId) {
 		return personalDAO.GetAllOpenVisitByPersId(persId);
 	}
 

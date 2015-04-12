@@ -6,6 +6,8 @@ import by.kipind.hospital.datamodel.Ward;
 
 public interface IWardDAO extends IAbstractDAO<Long, Ward> {
 
-	public List<Ward> getAllWithPersonal();
+	List<Ward> getAllWithPersonal();
+
+	Ward getByIdEager(Long id);
 
 }

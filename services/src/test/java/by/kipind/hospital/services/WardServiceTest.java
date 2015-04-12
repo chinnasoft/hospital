@@ -18,13 +18,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
-import by.kipind.hospital.services.testUtil.DBGenerator;
 import by.kipind.hospital.services.testUtil.TestModelInstGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
-public class WardServiceTest extends DBGenerator {
+public class WardServiceTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WardServiceTest.class);
 
@@ -38,8 +37,6 @@ public class WardServiceTest extends DBGenerator {
 		LOGGER.info("Instance of WardService is injected. Class is: {}", wardService.getClass().getName());
 		wardService.deleteAll();
 		personalService.deleteAll();
-
-		startGener();
 	}
 
 	@Test
@@ -51,6 +48,7 @@ public class WardServiceTest extends DBGenerator {
 
 	@Test
 	public void basicCRUDForWardTest() {
+
 		Set<Personal> pers = new HashSet<Personal>();
 		Personal existPers = null;
 		int n = TestRandomVal.randomInteger(2, 5);
@@ -67,7 +65,7 @@ public class WardServiceTest extends DBGenerator {
 		Ward ward = TestModelInstGenerator.getWard(pers);
 		wardService.saveOrUpdate(ward);
 
-		Ward wardFromDb = wardService.getById(ward.getId());
+		Ward wardFromDb = wardService.getByIdEager(ward.getId());
 
 		Assert.assertNotNull(wardFromDb);
 		Assert.assertEquals(wardFromDb.getComfortLvl(), ward.getComfortLvl());
@@ -85,7 +83,7 @@ public class WardServiceTest extends DBGenerator {
 
 		ward.getPersonal().remove(existPers);
 		wardService.saveOrUpdate(ward);
-		Ward wardFromDbUpdated = wardService.getById(wardFromDb.getId());
+		Ward wardFromDbUpdated = wardService.getByIdEager(wardFromDb.getId());
 
 		Assert.assertNotEquals(wardFromDbUpdated.getPersonal().size(), wardFromDb.getPersonal().size());
 
@@ -105,11 +103,10 @@ public class WardServiceTest extends DBGenerator {
 			pers.add(personalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
 		}
 		int m = TestRandomVal.randomInteger(1, 10);
+
 		for (int i = 1; i <= m; i++) {
 			existPers.clear();
-			for (int j = 1; j <= TestRandomVal.randomInteger(1, 5); j++) {
-				existPers.add(TestRandomVal.randomFromCollection(pers));
-			}
+			existPers.addAll(TestRandomVal.randomSubCollection(pers, TestRandomVal.randomInteger(1, 5)));
 			wardService.saveOrUpdate(TestModelInstGenerator.getWard(existPers));
 		}
 

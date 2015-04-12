@@ -57,14 +57,19 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 
 		Date startDt;
 		Date endDt;
+		int dischargeIndex = 0;
+		int[] notDischargeArr = { 0, 1, 2 }, dischargeArr = { 3 };
 
-		int k;
 		if (discharge) { // true - выписан
 			endDt = randomPastDate();
 			startDt = DateUtils.addDays(endDt, -(randomInteger(1, 99)));
+			dischargeIndex = randomBetween(dischargeArr);
+
 		} else {
 			endDt = null;
 			startDt = DateUtils.addDays(Calendar.getInstance().getTime(), -1 * (randomInteger(1, 99)));
+			dischargeIndex = randomBetween(notDischargeArr);
+
 		}
 		for (int i = 0; i <= randomInteger(1, 10); i++) {
 			Visit visit = new Visit();
@@ -74,13 +79,14 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 			visit.setFirstDs(randomString("firstDs"));
 			visit.setLastDs(randomString("lastDs"));
 			visit.setImportantFlag(randomInteger(0, 1));
-			visit.setDischargeFlag(EDischargeStatus.values()[(randomInteger(0, EDischargeStatus.values().length - 1))]);
+			visit.setDischargeFlag(EDischargeStatus.values()[dischargeIndex]);
 			visit.setWard(randomFromCollection(wards));
 
 			resultSet.add(visit);
 
 			endDt = DateUtils.addDays(startDt, -(randomInteger(1, 99)));
 			startDt = DateUtils.addDays(endDt, -(randomInteger(1, 99)));
+			dischargeIndex = randomBetween(dischargeArr);
 
 		}
 

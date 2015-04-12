@@ -31,6 +31,7 @@ public class PatientServiceTest {
 	public void cleanUpData() {
 		LOGGER.info("Instance of ProductService is injected. Class is: {}", patientService.getClass().getName());
 		patientService.deleteAll();
+
 	}
 
 	@Test
