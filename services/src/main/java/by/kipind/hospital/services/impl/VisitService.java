@@ -1,7 +1,9 @@
 package by.kipind.hospital.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -36,12 +38,26 @@ public class VisitService implements IVisitService {
 	}
 
 	@Override
-	public void saveOrUpdate(Visit visit) {
+	public Visit saveOrUpdate(Visit visit) {
 		if (visit.getId() == null) {
-			VisitDAO.insert(visit);
+			return VisitDAO.insert(visit);
 		} else {
-			VisitDAO.update(visit);
+			return VisitDAO.update(visit);
 		}
+
+	}
+
+	@Override
+	public Set<Visit> saveOrUpdate(Set<Visit> visits) {
+		Set<Visit> resultSet = new HashSet<Visit>();
+		for (Visit visit : visits) {
+			if (visit.getId() == null) {
+				resultSet.add(VisitDAO.insert(visit));
+			} else {
+				resultSet.add(VisitDAO.update(visit));
+			}
+		}
+		return resultSet;
 
 	}
 

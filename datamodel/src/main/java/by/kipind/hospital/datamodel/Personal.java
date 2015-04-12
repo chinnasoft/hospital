@@ -1,9 +1,15 @@
 package by.kipind.hospital.datamodel;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import by.kipind.hospital.datamodel.enam.EProf;
 
@@ -25,6 +31,9 @@ public class Personal extends AbstractEntity {
 	private EProf prof;
 	@Column
 	private String secondName;
+	@JoinTable(name = "ward_2_personal", joinColumns = { @JoinColumn(name = "personal_id") }, inverseJoinColumns = { @JoinColumn(name = "ward_id") })
+	@ManyToMany(targetEntity = Ward.class, fetch = FetchType.LAZY)
+	private Set<Ward> wards;
 
 	public String getFirstName() {
 		return firstName;
@@ -105,6 +114,14 @@ public class Personal extends AbstractEntity {
 		} else if (!super.getId().equals(other.getId()))
 			return false;
 		return true;
+	}
+
+	public Set<Ward> getWards() {
+		return wards;
+	}
+
+	public void setWards(Set<Ward> wards) {
+		this.wards = wards;
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import by.kipind.hospital.dataaccess.IPersonalDAO;
 import by.kipind.hospital.datamodel.Personal;
+import by.kipind.hospital.datamodel.Visit;
 import by.kipind.hospital.services.IPersonalService;
 
 @Service
@@ -38,9 +39,9 @@ public class PersonalService implements IPersonalService {
 	@Override
 	public Personal saveOrUpdate(Personal personal) {
 		if (personal.getId() == null) {
-			return (Personal) personalDAO.insert(personal);
+			return personalDAO.insert(personal);
 		} else {
-			return (Personal) personalDAO.update(personal);
+			return personalDAO.update(personal);
 		}
 
 	}
@@ -75,6 +76,11 @@ public class PersonalService implements IPersonalService {
 	public List<Personal> getAllPersonal() {
 		return personalDAO.getAll();
 
+	}
+
+	@Override
+	public List<Visit> GetPatients(Long persId) {
+		return personalDAO.GetAllOpenVisitByPersId(persId);
 	}
 
 }

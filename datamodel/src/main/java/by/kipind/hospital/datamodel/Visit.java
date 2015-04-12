@@ -4,8 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+
+import by.kipind.hospital.datamodel.enam.EDischargeStatus;
 
 @Entity
 public class Visit extends AbstractEntity {
@@ -25,7 +29,8 @@ public class Visit extends AbstractEntity {
 	@Column
 	private Integer importantFlag;
 	@Column
-	private Integer dischargeFlag; // выписка
+	@Enumerated(EnumType.ORDINAL)
+	private EDischargeStatus dischargeFlag; // статус пациента по выписке
 
 	public Patient getPatient() {
 		return patient;
@@ -67,14 +72,6 @@ public class Visit extends AbstractEntity {
 		this.importantFlag = importantFlag;
 	}
 
-	public Integer getDischargeFlag() {
-		return dischargeFlag;
-	}
-
-	public void setDischargeFlag(Integer dischargeFlag) {
-		this.dischargeFlag = dischargeFlag;
-	}
-
 	public Ward getWard() {
 		return ward;
 	}
@@ -89,6 +86,14 @@ public class Visit extends AbstractEntity {
 
 	public void setStartDt(Date startDt) {
 		this.startDt = startDt;
+	}
+
+	public EDischargeStatus getDischargeFlag() {
+		return dischargeFlag;
+	}
+
+	public void setDischargeFlag(EDischargeStatus dischargeFlag) {
+		this.dischargeFlag = dischargeFlag;
 	}
 
 }

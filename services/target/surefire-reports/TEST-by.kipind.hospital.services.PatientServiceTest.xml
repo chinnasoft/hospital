@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="0" name="by.kipind.hospital.services.PatientServiceTest" time="19.234" errors="0" skipped="0">
+<testsuite tests="2" failures="0" name="by.kipind.hospital.services.PatientServiceTest" time="17.922" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_31\jre\bin"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value="Service Pack 3"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\javaWeb\workspace\hospital"/>
+    <property name="user.dir" value="c:\javaWeb\workspace\hospital"/>
     <property name="java.runtime.version" value="1.8.0_31-b13"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_31\jre\lib\endorsed"/>
@@ -62,6 +62,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="by.kipind.hospital.services.PatientServiceTest" name="basicCRUDForPatientTest" time="19.234"/>
+  <testcase classname="by.kipind.hospital.services.PatientServiceTest" name="basicCRUDForPatientTest" time="17.922"/>
   <testcase classname="by.kipind.hospital.services.PatientServiceTest" name="DITest" time="0"/>
 </testsuite>

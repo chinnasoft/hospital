@@ -11,7 +11,7 @@ public interface IPatientService {
 	Patient getById(Long id);
 
 	@Transactional
-	void saveOrUpdate(Patient patient);
+	Patient saveOrUpdate(Patient patient);
 
 	@Transactional
 	void delete(Patient patient);

@@ -1,10 +1,17 @@
 package by.kipind.hospital.services.testUtil;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 import by.kipind.hospital.datamodel.Patient;
 import by.kipind.hospital.datamodel.Personal;
+import by.kipind.hospital.datamodel.Visit;
 import by.kipind.hospital.datamodel.Ward;
+import by.kipind.hospital.datamodel.enam.EDischargeStatus;
 import by.kipind.hospital.datamodel.enam.EHumanSex;
 import by.kipind.hospital.datamodel.enam.EProf;
 import by.kipind.hospital.datamodel.enam.EWardComfort;
@@ -35,10 +42,48 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 	}
 
 	public static Ward getWard(Set<Personal> pers) {
+		int nMax = randomInteger(1, 5);
 		Ward ward = new Ward();
 		ward.setWardNum(randomInteger(1, 99999));
+		ward.setPlaceNumSum(nMax);
+		ward.setPlaceNumBisy(randomInteger(0, nMax));
 		ward.setComfortLvl(EWardComfort.values()[(randomInteger(0, EWardComfort.values().length - 1))]);
 		ward.setPersonal(pers);
 		return ward;
+	}
+
+	public static Set<Visit> getVisitsForPatient(Set<Ward> wards, Patient patient, Boolean discharge) {
+		Set<Visit> resultSet = new HashSet<Visit>();
+
+		Date startDt;
+		Date endDt;
+
+		int k;
+		if (discharge) { // true - выписан
+			endDt = randomPastDate();
+			startDt = DateUtils.addDays(endDt, -(randomInteger(1, 99)));
+		} else {
+			endDt = null;
+			startDt = DateUtils.addDays(Calendar.getInstance().getTime(), -1 * (randomInteger(1, 99)));
+		}
+		for (int i = 0; i <= randomInteger(1, 10); i++) {
+			Visit visit = new Visit();
+			visit.setPatient(patient);
+			visit.setStartDt(startDt);
+			visit.setEndDt(endDt);
+			visit.setFirstDs(randomString("firstDs"));
+			visit.setLastDs(randomString("lastDs"));
+			visit.setImportantFlag(randomInteger(0, 1));
+			visit.setDischargeFlag(EDischargeStatus.values()[(randomInteger(0, EDischargeStatus.values().length - 1))]);
+			visit.setWard(randomFromCollection(wards));
+
+			resultSet.add(visit);
+
+			endDt = DateUtils.addDays(startDt, -(randomInteger(1, 99)));
+			startDt = DateUtils.addDays(endDt, -(randomInteger(1, 99)));
+
+		}
+
+		return resultSet;
 	}
 }

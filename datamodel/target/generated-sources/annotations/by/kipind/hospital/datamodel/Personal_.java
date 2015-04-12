@@ -2,6 +2,7 @@ package by.kipind.hospital.datamodel;
 
 import by.kipind.hospital.datamodel.enam.EProf;
 import javax.annotation.Generated;
+import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
@@ -15,6 +16,7 @@ public abstract class Personal_ extends by.kipind.hospital.datamodel.AbstractEnt
 	public static volatile SingularAttribute<Personal, String> pass;
 	public static volatile SingularAttribute<Personal, Integer> tabelNumber;
 	public static volatile SingularAttribute<Personal, EProf> prof;
+	public static volatile SetAttribute<Personal, Ward> wards;
 	public static volatile SingularAttribute<Personal, String> secondName;
 
 }

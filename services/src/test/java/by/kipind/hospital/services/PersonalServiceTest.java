@@ -31,6 +31,7 @@ public class PersonalServiceTest {
 	public void cleanUpData() {
 		LOGGER.info("Instance of PersonalService is injected. Class is: {}", personalService.getClass().getName());
 		personalService.deleteAll();
+
 	}
 
 	@Test
@@ -100,4 +101,5 @@ public class PersonalServiceTest {
 		Assert.assertEquals(personalsList.size(), 0);
 
 	}
+
 }
