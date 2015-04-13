@@ -48,7 +48,7 @@ public class VisitService implements IVisitService {
 	}
 
 	@Override
-	public Set<Visit> saveOrUpdate(Set<Visit> visits) {
+	public Set<Visit> saveOrUpdate(List<Visit> visits) {
 		Set<Visit> resultSet = new HashSet<Visit>();
 		for (Visit visit : visits) {
 			if (visit.getId() == null) {

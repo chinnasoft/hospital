@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.hibernate.LazyInitializationException;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,25 +17,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Ward;
-import by.kipind.hospital.services.testUtil.TestModelInstGenerator;
+import by.kipind.hospital.services.testUtil.TestModelGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
-public class WardServiceTest {
+public class WardServiceTest extends BaseTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(WardServiceTest.class);
 
-	@Inject
-	private IWardService wardService;
-	@Inject
-	private IPersonalService personalService;
-
 	@Before
-	public void cleanUpData() {
-		LOGGER.info("Instance of WardService is injected. Class is: {}", wardService.getClass().getName());
-		wardService.deleteAll();
-		personalService.deleteAll();
+	public void beforTest() {
+		cleanDB();
+
+	}
+
+	@After
+	public void afterTest() {
+		cleanDB();
+
 	}
 
 	@Test
@@ -55,17 +54,17 @@ public class WardServiceTest {
 		int m = TestRandomVal.randomInteger(1, n);
 		for (int i = 1; i <= n; i++) {
 			if (i == m) {
-				existPers = personalService.saveOrUpdate(TestModelInstGenerator.getPersonal());
+				existPers = personalService.saveOrUpdate(TestModelGenerator.getPersonal());
 				pers.add(existPers);
 				continue;
 			}
-			pers.add(personalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
+			pers.add(personalService.saveOrUpdate(TestModelGenerator.getPersonal()));
 		}
 
-		Ward ward = TestModelInstGenerator.getWard(pers);
+		Ward ward = TestModelGenerator.getWard(pers);
 		wardService.saveOrUpdate(ward);
 
-		Ward wardFromDb = wardService.getByIdEager(ward.getId());
+		Ward wardFromDb = wardService.getById(ward.getId());
 
 		Assert.assertNotNull(wardFromDb);
 		Assert.assertEquals(wardFromDb.getComfortLvl(), ward.getComfortLvl());
@@ -83,7 +82,7 @@ public class WardServiceTest {
 
 		ward.getPersonal().remove(existPers);
 		wardService.saveOrUpdate(ward);
-		Ward wardFromDbUpdated = wardService.getByIdEager(wardFromDb.getId());
+		Ward wardFromDbUpdated = wardService.getById(wardFromDb.getId());
 
 		Assert.assertNotEquals(wardFromDbUpdated.getPersonal().size(), wardFromDb.getPersonal().size());
 
@@ -100,14 +99,14 @@ public class WardServiceTest {
 
 		int n = TestRandomVal.randomInteger(1, 50); //
 		for (int i = 1; i <= n; i++) {
-			pers.add(personalService.saveOrUpdate(TestModelInstGenerator.getPersonal()));
+			pers.add(personalService.saveOrUpdate(TestModelGenerator.getPersonal()));
 		}
 		int m = TestRandomVal.randomInteger(1, 10);
 
 		for (int i = 1; i <= m; i++) {
 			existPers.clear();
 			existPers.addAll(TestRandomVal.randomSubCollection(pers, TestRandomVal.randomInteger(1, 5)));
-			wardService.saveOrUpdate(TestModelInstGenerator.getWard(existPers));
+			wardService.saveOrUpdate(TestModelGenerator.getWard(existPers));
 		}
 
 		List<Ward> wards = wardService.getAllWards();
@@ -115,8 +114,7 @@ public class WardServiceTest {
 
 		try {
 			// exception will be thrown because of lazy collection
-			Personal checkLazyPersonal = TestRandomVal
-					.randomFromCollection(wards.get(TestRandomVal.randomInteger(0, wards.size()) - 1).getPersonal());
+			TestRandomVal.randomFromCollection(wards.get(TestRandomVal.randomInteger(0, wards.size()) - 1).getPersonal()).getId();
 			Assert.assertEquals(1, 2);
 		} catch (LazyInitializationException e) {
 			Assert.assertEquals(1, 1);

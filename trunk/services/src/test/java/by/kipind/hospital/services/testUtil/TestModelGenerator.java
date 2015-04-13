@@ -1,8 +1,9 @@
 package by.kipind.hospital.services.testUtil;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -16,7 +17,7 @@ import by.kipind.hospital.datamodel.enam.EHumanSex;
 import by.kipind.hospital.datamodel.enam.EProf;
 import by.kipind.hospital.datamodel.enam.EWardComfort;
 
-public abstract class TestModelInstGenerator extends TestRandomVal {
+public abstract class TestModelGenerator extends TestRandomVal {
 
 	public static Patient getPatient() {
 		Patient patient = new Patient();
@@ -52,8 +53,8 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 		return ward;
 	}
 
-	public static Set<Visit> getVisitsForPatient(Set<Ward> wards, Patient patient, Boolean discharge) {
-		Set<Visit> resultSet = new HashSet<Visit>();
+	public static List<Visit> getVisitsForPatient(Set<Ward> wards, Patient patient, Boolean discharge) {
+		List<Visit> resultSet = new ArrayList<Visit>();
 
 		Date startDt;
 		Date endDt;
@@ -71,7 +72,8 @@ public abstract class TestModelInstGenerator extends TestRandomVal {
 			dischargeIndex = randomBetween(notDischargeArr);
 
 		}
-		for (int i = 0; i <= randomInteger(1, 10); i++) {
+		int n = randomInteger(1, 10);
+		for (int i = 1; i <= n; i++) {
 			Visit visit = new Visit();
 			visit.setPatient(patient);
 			visit.setStartDt(startDt);

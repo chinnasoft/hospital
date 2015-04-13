@@ -3,8 +3,7 @@ package by.kipind.hospital.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,22 +14,24 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import by.kipind.hospital.datamodel.Patient;
-import by.kipind.hospital.services.testUtil.TestModelInstGenerator;
+import by.kipind.hospital.services.testUtil.TestModelGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
-public class PatientServiceTest {
+public class PatientServiceTest extends BaseTest {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(PatientServiceTest.class);
 
-	@Inject
-	private IPatientService patientService;
-
 	@Before
-	public void cleanUpData() {
-		LOGGER.info("Instance of ProductService is injected. Class is: {}", patientService.getClass().getName());
-		patientService.deleteAll();
+	public void beforTest() {
+		cleanDB();
+
+	}
+
+	@After
+	public void afterTest() {
+		cleanDB();
 
 	}
 
@@ -43,7 +44,7 @@ public class PatientServiceTest {
 
 	@Test
 	public void basicCRUDForPatientTest() {
-		Patient patient = TestModelInstGenerator.getPatient();
+		Patient patient = TestModelGenerator.getPatient();
 		patientService.saveOrUpdate(patient);
 
 		Patient patientFromDb = patientService.getById(patient.getId());
@@ -72,7 +73,7 @@ public class PatientServiceTest {
 
 		int n = TestRandomVal.randomInteger(2, 100);
 		for (int i = 1; i <= n; i++) {
-			patientService.saveOrUpdate(TestModelInstGenerator.getPatient());
+			patientService.saveOrUpdate(TestModelGenerator.getPatient());
 		}
 		List<Patient> patientsList = patientService.getAllPatients();
 		Assert.assertEquals(patientsList.size(), n);

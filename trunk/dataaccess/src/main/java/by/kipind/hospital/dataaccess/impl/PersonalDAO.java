@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
@@ -83,7 +84,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		criteriaQuery.where(cBuilder.and(cBuilder.equal(personal.get(Personal_.id), id), cBuilder.equal(personal.get(Personal_.delMarker), false)));
 
-		// personal.fetch(Personal_.wards);
+		personal.fetch(Personal_.wards, JoinType.LEFT);
 
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		Personal results;
