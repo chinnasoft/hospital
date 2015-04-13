@@ -2,9 +2,11 @@ package by.kipind.hospital.dataaccess.impl;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.IVisitDAO;
 import by.kipind.hospital.datamodel.Visit;
+import by.kipind.hospital.datamodel.Visit_;
 
 //import by.dzhvisuhko.sample.datamodel.Product_;
 
@@ -50,6 +53,30 @@ public class VisitDAO extends AbstractDAO<Long, Visit> implements IVisitDAO {
 
 		List<Visit> results = query.getResultList();
 		return results;
+	}
+
+	@Override
+	public Visit getById(Long id) {
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+		CriteriaQuery<Visit> criteriaQuery = cBuilder.createQuery(Visit.class);
+
+		Root<Visit> visit = criteriaQuery.from(Visit.class);
+
+		criteriaQuery.select(visit);
+		criteriaQuery.where(cBuilder.equal(visit.get(Visit_.id), id));
+
+		visit.fetch(Visit_.patient, JoinType.LEFT);
+		visit.fetch(Visit_.ward, JoinType.LEFT);
+		criteriaQuery.distinct(true);
+
+		TypedQuery<Visit> query = getEm().createQuery(criteriaQuery);
+		try {
+			Visit result = query.getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
+
 	}
 
 }

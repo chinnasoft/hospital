@@ -21,8 +21,6 @@ public interface IWardService {
 
 	List<Ward> getAllWards();
 
-	Ward getByIdEager(Long id);
-
 	// ----
 
 }

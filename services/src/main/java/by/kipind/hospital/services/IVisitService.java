@@ -15,7 +15,7 @@ public interface IVisitService {
 	Visit saveOrUpdate(Visit visit);
 
 	@Transactional
-	Set<Visit> saveOrUpdate(Set<Visit> visits);
+	Set<Visit> saveOrUpdate(List<Visit> visits);
 
 	@Transactional
 	void delete(Visit visit);
