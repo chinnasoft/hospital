@@ -8,18 +8,20 @@ public interface IAbstractDAO<ID, Entity> {
 
 	Entity getById(ID id);
 
-	Entity insert(Entity entity);
-
-	Entity update(Entity entity);
+	Entity getByIdFull(ID id);
 
 	List<Entity> getAll();
 
 	List<Entity> getAllByField(final SingularAttribute<? super Entity, ?> attribute, final Object value);
 
+	Entity insert(Entity entity);
+
+	Entity update(Entity entity);
+
 	void delete(ID key);
 
-	void deleteAll();
-
 	void delete(List<ID> ids);
+
+	void dropAll(); //
 
 }

@@ -13,11 +13,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Conferense extends AbstractEntity {
 
-	@Column
 	private Date conDateTime;
-	@Column
 	private String dayOrder;
-	@Column
 	private Integer conLvl;
 
 	@JoinTable(name = "conference_2_visit", joinColumns = { @JoinColumn(name = "conferene_id") }, inverseJoinColumns = { @JoinColumn(name = "visit_id") })
@@ -28,40 +25,43 @@ public class Conferense extends AbstractEntity {
 	@ManyToMany(targetEntity = Personal.class, fetch = FetchType.LAZY)
 	private Set<Personal> personal;
 
+	@Column
 	public Date getConDateTime() {
 		return conDateTime;
 	}
 
-	public void setConDateTime(Date conDateTime) {
-		this.conDateTime = conDateTime;
-	}
-
+	@Column
 	public String getDayOrder() {
 		return dayOrder;
 	}
 
-	public void setDayOrder(String dayOrder) {
-		this.dayOrder = dayOrder;
-	}
-
+	@Column
 	public Integer getConLvl() {
 		return conLvl;
-	}
-
-	public void setConLvl(Integer conLvl) {
-		this.conLvl = conLvl;
 	}
 
 	public Set<Visit> getVisits() {
 		return visits;
 	}
 
-	public void setVisits(Set<Visit> visits) {
-		this.visits = visits;
-	}
-
 	public Set<Personal> getPersonal() {
 		return personal;
+	}
+
+	public void setConDateTime(Date conDateTime) {
+		this.conDateTime = conDateTime;
+	}
+
+	public void setDayOrder(String dayOrder) {
+		this.dayOrder = dayOrder;
+	}
+
+	public void setConLvl(Integer conLvl) {
+		this.conLvl = conLvl;
+	}
+
+	public void setVisits(Set<Visit> visits) {
+		this.visits = visits;
 	}
 
 	public void setPersonal(Set<Personal> personal) {

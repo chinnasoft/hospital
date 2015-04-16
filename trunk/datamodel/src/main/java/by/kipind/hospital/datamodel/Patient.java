@@ -11,9 +11,8 @@ import by.kipind.hospital.datamodel.enam.EHumanSex;
 
 @Entity
 public class Patient extends AbstractEntity {
-	@Column
+
 	private String socialNumber;
-	@Column
 	private String firstName;
 	@Column
 	private String lastName;
@@ -25,48 +24,55 @@ public class Patient extends AbstractEntity {
 	@Enumerated(EnumType.ORDINAL)
 	private EHumanSex sex;
 
+	@Column
 	public String getSocialNumber() {
 		return socialNumber;
+	}
+
+	@Column
+	public String getFirstName() {
+		return firstName;
+	}
+
+	@Column
+	public String getLastName() {
+		return lastName;
+	}
+
+	@Column
+	public Date getBirthDt() {
+		return birthDt;
+	}
+
+	@Column
+	public String getAddress() {
+		return address;
+	}
+
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	public EHumanSex getSex() {
+		return sex;
 	}
 
 	public void setSocialNumber(String socialNumber) {
 		this.socialNumber = socialNumber;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
 	}
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	public Date getBirthDt() {
-		return birthDt;
-	}
-
 	public void setBirthDt(Date birthDt) {
 		this.birthDt = birthDt;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public EHumanSex getSex() {
-		return sex;
 	}
 
 	public void setSex(EHumanSex sex) {

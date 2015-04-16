@@ -10,7 +10,6 @@ public class ResultSource extends AbstractEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Prescribe.class)
 	private Prescribe prescribe;
-	@Column
 	private String sourseLink;
 
 	public Prescribe getPrescribe() {
@@ -21,6 +20,7 @@ public class ResultSource extends AbstractEntity {
 		this.prescribe = prescribe;
 	}
 
+	@Column
 	public String getSourseLink() {
 		return sourseLink;
 	}

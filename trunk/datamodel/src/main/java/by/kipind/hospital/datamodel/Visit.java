@@ -18,78 +18,78 @@ public class Visit extends AbstractEntity {
 	private Ward ward;
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = Patient.class)
 	private Patient patient;
-	@Column
 	private Date startDt;
-	@Column
 	private Date endDt;
-	@Column
 	private String firstDs;
-	@Column
 	private String lastDs;
-	@Column
 	private Integer importantFlag;
-	@Column
-	@Enumerated(EnumType.ORDINAL)
 	private EDischargeStatus dischargeFlag; // статус пациента по выписке
+
+	public Ward getWard() {
+		return ward;
+	}
 
 	public Patient getPatient() {
 		return patient;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	@Column
+	public Date getStartDt() {
+		return startDt;
 	}
 
+	@Column
 	public Date getEndDt() {
 		return endDt;
 	}
 
-	public void setEndDt(Date endDt) {
-		this.endDt = endDt;
-	}
-
+	@Column
 	public String getFirstDs() {
 		return firstDs;
 	}
 
-	public void setFirstDs(String firstDs) {
-		this.firstDs = firstDs;
-	}
-
+	@Column
 	public String getLastDs() {
 		return lastDs;
 	}
 
-	public void setLastDs(String lastDs) {
-		this.lastDs = lastDs;
-	}
-
+	@Column
 	public Integer getImportantFlag() {
 		return importantFlag;
 	}
 
-	public void setImportantFlag(Integer importantFlag) {
-		this.importantFlag = importantFlag;
-	}
-
-	public Ward getWard() {
-		return ward;
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	public EDischargeStatus getDischargeFlag() {
+		return dischargeFlag;
 	}
 
 	public void setWard(Ward ward) {
 		this.ward = ward;
 	}
 
-	public Date getStartDt() {
-		return startDt;
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 
 	public void setStartDt(Date startDt) {
 		this.startDt = startDt;
 	}
 
-	public EDischargeStatus getDischargeFlag() {
-		return dischargeFlag;
+	public void setEndDt(Date endDt) {
+		this.endDt = endDt;
+	}
+
+	public void setFirstDs(String firstDs) {
+		this.firstDs = firstDs;
+	}
+
+	public void setLastDs(String lastDs) {
+		this.lastDs = lastDs;
+	}
+
+	public void setImportantFlag(Integer importantFlag) {
+		this.importantFlag = importantFlag;
 	}
 
 	public void setDischargeFlag(EDischargeStatus dischargeFlag) {
