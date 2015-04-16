@@ -3,6 +3,7 @@ package by.kipind.hospital.dataaccess.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -17,12 +18,14 @@ import org.slf4j.LoggerFactory;
 
 import by.kipind.hospital.dataaccess.IAbstractDAO;
 
-public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
+public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDAO.class);
 
 	private EntityManager em;
 	private final Class<Entity> entityClass;
+
+	// ===================================================
 
 	protected AbstractDAO(final Class<Entity> entityClass) {
 		Validate.notNull(entityClass, "entityClass could not be a null");
@@ -43,9 +46,49 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 		return em;
 	}
 
-	@Override
+	// ===================================================
+
 	public Entity getById(ID id) {
-		return em.find(getEntityClass(), id);
+		// return em.find(getEntityClass(), id);
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+		CriteriaQuery<Entity> criteriaQuery = cBuilder.createQuery(getEntityClass());
+
+		Root<Entity> entity = criteriaQuery.from(getEntityClass());
+
+		criteriaQuery.select(entity);
+		criteriaQuery.where(cBuilder.equal(entity.get("id"), id));
+
+		TypedQuery<Entity> query = getEm().createQuery(criteriaQuery);
+		try {
+			Entity result = query.getSingleResult();
+			return result;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	public abstract Entity getByIdFull(ID id);
+
+	public List<Entity> getAll() {
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+		CriteriaQuery<Entity> criteriaQuery = cBuilder.createQuery(getEntityClass());
+		Root<Entity> entity = criteriaQuery.from(getEntityClass());
+
+		criteriaQuery.select(entity);
+
+		TypedQuery<Entity> query = getEm().createQuery(criteriaQuery);
+		List<Entity> results = query.getResultList();
+		return results;
+	}
+
+	public List<Entity> getAllByField(final SingularAttribute<? super Entity, ?> attribute, final Object value) {
+		Validate.notNull(value, "Search attributes can't be empty. Attribute: " + attribute.getName());
+		CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+		CriteriaQuery<Entity> criteriaQuery = cBuilder.createQuery(getEntityClass());
+		Root<Entity> entity = criteriaQuery.from(getEntityClass());
+		// criteriaQuery.select(entity).distinct(true);
+		criteriaQuery.where(cBuilder.equal(entity.get(attribute), value));
+		return em.createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
@@ -88,27 +131,9 @@ public class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity> {
 	}
 
 	@Override
-	public List<Entity> getAll() {
-		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
-		CriteriaQuery<Entity> criteria = cBuilder.createQuery(getEntityClass());
-		Root<Entity> root = criteria.from(getEntityClass());
+	public void dropAll() {
+		// TODO Auto-generated method stub
 
-		criteria.select(root);
-
-		TypedQuery<Entity> query = getEm().createQuery(criteria);
-		List<Entity> results = query.getResultList();
-		return results;
-	}
-
-	@Override
-	public List<Entity> getAllByField(final SingularAttribute<? super Entity, ?> attribute, final Object value) {
-		Validate.notNull(value, "Search attributes can't be empty. Attribute: " + attribute.getName());
-		final CriteriaBuilder builder = em.getCriteriaBuilder();
-		final CriteriaQuery<Entity> criteria = builder.createQuery(getEntityClass());
-		final Root<Entity> root = criteria.from(getEntityClass());
-		criteria.select(root).distinct(true);
-		criteria.where(builder.equal(root.get(attribute), value));
-		return em.createQuery(criteria).getResultList();
 	}
 
 }

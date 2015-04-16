@@ -16,53 +16,53 @@ import by.kipind.hospital.datamodel.enam.EWardComfort;
 @Entity
 public class Ward extends AbstractEntity {
 
-	@Column
 	private Integer wardNum;
-	@Column
-	@Enumerated(EnumType.ORDINAL)
 	private EWardComfort comfortLvl;
 	@JoinTable(name = "ward_2_personal", joinColumns = { @JoinColumn(name = "ward_id") }, inverseJoinColumns = { @JoinColumn(name = "personal_id") })
 	@ManyToMany(targetEntity = Personal.class, fetch = FetchType.LAZY)
 	private Set<Personal> personal;
-	@Column
 	private Integer placeNumSum;
-	@Column
 	private Integer placeNumBisy;
 
+	@Column
 	public Integer getWardNum() {
 		return wardNum;
 	}
 
-	public void setWardNum(Integer wardNum) {
-		this.wardNum = wardNum;
+	@Column
+	@Enumerated(EnumType.ORDINAL)
+	public EWardComfort getComfortLvl() {
+		return comfortLvl;
 	}
 
 	public Set<Personal> getPersonal() {
 		return personal;
 	}
 
-	public void setPersonal(Set<Personal> personal) {
-		this.personal = personal;
+	@Column
+	public Integer getPlaceNumSum() {
+		return placeNumSum;
 	}
 
-	public EWardComfort getComfortLvl() {
-		return comfortLvl;
+	@Column
+	public Integer getPlaceNumBisy() {
+		return placeNumBisy;
+	}
+
+	public void setWardNum(Integer wardNum) {
+		this.wardNum = wardNum;
 	}
 
 	public void setComfortLvl(EWardComfort comfortLvl) {
 		this.comfortLvl = comfortLvl;
 	}
 
-	public Integer getPlaceNumSum() {
-		return placeNumSum;
+	public void setPersonal(Set<Personal> personal) {
+		this.personal = personal;
 	}
 
 	public void setPlaceNumSum(Integer placeNumSum) {
 		this.placeNumSum = placeNumSum;
-	}
-
-	public Integer getPlaceNumBisy() {
-		return placeNumBisy;
 	}
 
 	public void setPlaceNumBisy(Integer placeNumBisy) {
