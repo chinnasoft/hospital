@@ -32,49 +32,63 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 	}
 
 	@Override
-	public void delete(final Long key) {
+	public void delete(Long key) {
 		Personal personal = getEm().find(Personal.class, key);
 		personal.setDelMarker(true);
 		getEm().merge(personal);
 		getEm().flush();
-
 	}
 
 	@Override
 	public void delete(List<Long> ids) {
 
 		if (ids.size() > 0) {
-			/*
-			 * Personal pers; for (Long long1 : ids) { pers =
-			 * getEm().find(Personal.class, long1); pers.setDelMarker(true);
-			 * getEm().merge(pers);
-			 * 
-			 * } getEm().flush();
-			 */
-
 			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.delMarker=:delMark where p.id in (:ids) ");
-			Query eleteWithFlagQuery = getEm().createQuery(qStr); //
-			eleteWithFlagQuery.setParameter("ids", ids);
-			eleteWithFlagQuery.setParameter("delMark", true);
-			eleteWithFlagQuery.executeUpdate();
+			Query deleteWithFlagQuery = getEm().createQuery(qStr); //
+			deleteWithFlagQuery.setParameter("ids", ids);
+			deleteWithFlagQuery.setParameter("delMark", true);
+			deleteWithFlagQuery.executeUpdate();
 
 		} else {
+			//TODO: прокинуть эксепшен до service слоя
 			LOGGER.warn("Attempt to delete objects by empty parametr list", getEm().hashCode(), Personal.class);
 		}
 	}
-
+	
 	@Override
-	// реальная очистка таблицы
 	public void deleteAll() {
 
-		final Query q1 = getEm().createQuery(String.format("delete from %s", Personal.class.getSimpleName()));
-		q1.executeUpdate();
-		getEm().flush();
+			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.delMarker=:delMark  ");
+			Query deleteWithFlagQuery = getEm().createQuery(qStr); //
+			deleteWithFlagQuery.setParameter("delMark", true);
+			deleteWithFlagQuery.executeUpdate();
 
 	}
 
 	@Override
 	public Personal getById(Long id) {
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+
+		CriteriaQuery<Personal> criteriaQuery = cBuilder.createQuery(Personal.class);
+		Root<Personal> personal = criteriaQuery.from(Personal.class);
+
+		criteriaQuery.select(personal);
+		criteriaQuery.where(cBuilder.and(cBuilder.equal(personal.get(Personal_.id), id), cBuilder.equal(personal.get(Personal_.delMarker), false)));
+		
+		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
+		Personal results;
+		try {
+			results = query.getSingleResult();
+		} catch (NoResultException e) {
+			results = null;
+		}
+		return results;
+
+	}
+	
+	
+	@Override
+	public Personal getByIdFull(Long id) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
 		CriteriaQuery<Personal> criteriaQuery = cBuilder.createQuery(Personal.class);
@@ -126,6 +140,8 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		visit.fetch(Visit_.patient);
 
+		criteriaQuery.
+		
 		TypedQuery<Visit> query = getEm().createQuery(criteriaQuery);
 		List<Visit> results = query.getResultList();
 		return results;
