@@ -1,17 +1,9 @@
 package by.kipind.hospital.dataaccess.impl;
 
-import java.util.List;
-
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.IPatientDAO;
 import by.kipind.hospital.datamodel.Patient;
-import by.kipind.hospital.datamodel.Patient_;
 
 @Repository
 public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDAO {
@@ -21,7 +13,7 @@ public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDA
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Patient> getAllPatientsBySex(Integer sex) {
+	/*public List<Patient> getAllPatientsBySex(Integer sex) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
 		CriteriaQuery<Patient> criteriaQuery = cBuilder.createQuery(Patient.class);
@@ -32,6 +24,11 @@ public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDA
 		TypedQuery<Patient> query = getEm().createQuery(criteriaQuery);
 		List<Patient> results = query.getResultList();
 		return results;
+	}*/
+
+	@Override
+	public Patient getByIdFull(Long id) {
+		return this.getById(id);
 	}
 
 	/*

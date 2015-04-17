@@ -83,12 +83,14 @@ public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity
 
 	public List<Entity> getAllByField(final SingularAttribute<? super Entity, ?> attribute, final Object value) {
 		Validate.notNull(value, "Search attributes can't be empty. Attribute: " + attribute.getName());
-		CriteriaBuilder cBuilder = em.getCriteriaBuilder();
+		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Entity> criteriaQuery = cBuilder.createQuery(getEntityClass());
 		Root<Entity> entity = criteriaQuery.from(getEntityClass());
-		// criteriaQuery.select(entity).distinct(true);
+		
+		criteriaQuery.select(entity);
 		criteriaQuery.where(cBuilder.equal(entity.get(attribute), value));
-		return em.createQuery(criteriaQuery).getResultList();
+		
+		return getEm().createQuery(criteriaQuery).getResultList();
 	}
 
 	@Override
@@ -121,19 +123,20 @@ public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity
 		}
 	}
 
-	@Override
+	// фенкциональное удаление 
 	public void deleteAll() {
 
-		final Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
+		Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
 		q1.executeUpdate();
 		em.flush();
 
 	}
 
-	@Override
+// для очистки базы
 	public void dropAll() {
-		// TODO Auto-generated method stub
-
+		Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
+		q1.executeUpdate();
+		em.flush();
 	}
 
 }
