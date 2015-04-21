@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.ICheckupDAO;
 import by.kipind.hospital.datamodel.Checkup;
+import by.kipind.hospital.datamodel.Checkup_;
 
 @Repository
 public class CheckupDAO extends AbstractDAO<Long, Checkup> implements ICheckupDAO {
@@ -20,7 +21,6 @@ public class CheckupDAO extends AbstractDAO<Long, Checkup> implements ICheckupDA
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public Checkup getByIdFull(Long id) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Checkup> criteriaQuery = cBuilder.createQuery(Checkup.class);
@@ -29,19 +29,19 @@ public class CheckupDAO extends AbstractDAO<Long, Checkup> implements ICheckupDA
 
 		criteriaQuery.select(сheckup);
 		criteriaQuery.where(cBuilder.equal(сheckup.get("id"), id));
-		
+
 		сheckup.fetch(Checkup_.personal, JoinType.LEFT);
 		сheckup.fetch(Checkup_.visit, JoinType.LEFT);
-		
+
 		TypedQuery<Checkup> query = getEm().createQuery(criteriaQuery);
-		
+
 		try {
 			Checkup result = query.getSingleResult();
 			return result;
 		} catch (NoResultException e) {
 			return null;
 		}
-		
+
 	}
 
 }

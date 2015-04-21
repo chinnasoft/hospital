@@ -71,7 +71,7 @@ public class PersonalServiceTest extends BaseTest {
 		Assert.assertEquals(personalFromDbUpdated.getProf(), personal.getProf());
 
 		personalService.delete(personalFromDbUpdated);
-		Assert.assertNull(personalService.getById(personal.getId()));
+		Assert.assertNull(personalService.getByIdFull(personal.getId()));
 
 		int n = TestRandomVal.randomInteger(2, 100);
 		for (int i = 1; i <= n; i++) {

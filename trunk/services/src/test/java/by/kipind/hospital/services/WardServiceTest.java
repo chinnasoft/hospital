@@ -64,7 +64,7 @@ public class WardServiceTest extends BaseTest {
 		Ward ward = TestModelGenerator.getWard(pers);
 		wardService.saveOrUpdate(ward);
 
-		Ward wardFromDb = wardService.getById(ward.getId());
+		Ward wardFromDb = wardService.getByIdFull(ward.getId());
 
 		Assert.assertNotNull(wardFromDb);
 		Assert.assertEquals(wardFromDb.getComfortLvl(), ward.getComfortLvl());
@@ -82,7 +82,7 @@ public class WardServiceTest extends BaseTest {
 
 		ward.getPersonal().remove(existPers);
 		wardService.saveOrUpdate(ward);
-		Ward wardFromDbUpdated = wardService.getById(wardFromDb.getId());
+		Ward wardFromDbUpdated = wardService.getByIdFull(wardFromDb.getId());
 
 		Assert.assertNotEquals(wardFromDbUpdated.getPersonal().size(), wardFromDb.getPersonal().size());
 

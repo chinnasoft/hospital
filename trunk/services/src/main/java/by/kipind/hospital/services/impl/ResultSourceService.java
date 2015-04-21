@@ -68,7 +68,7 @@ public class ResultSourceService implements IResultSourceService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		ResultSourceDAO.deleteAll();
+		ResultSourceDAO.dropAll();
 	}
 
 	@Override

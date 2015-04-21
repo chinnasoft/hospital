@@ -68,7 +68,7 @@ public class CheckupService implements ICheckupService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		CheckupDAO.deleteAll();
+		CheckupDAO.dropAll();
 	}
 
 	@Override

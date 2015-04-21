@@ -13,4 +13,10 @@ public class PrescribeDAO extends AbstractDAO<Long, Prescribe> implements IPresc
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public Prescribe getByIdFull(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

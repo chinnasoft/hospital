@@ -68,7 +68,7 @@ public class ConferenseService implements IConferenseService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		conferenseDAO.deleteAll();
+		conferenseDAO.dropAll();
 	}
 
 	@Override

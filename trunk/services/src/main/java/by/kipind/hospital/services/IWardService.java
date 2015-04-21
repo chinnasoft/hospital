@@ -10,6 +10,8 @@ public interface IWardService {
 
 	Ward getById(Long id);
 
+	Ward getByIdFull(Long id);
+
 	@Transactional
 	Ward saveOrUpdate(Ward ward);
 

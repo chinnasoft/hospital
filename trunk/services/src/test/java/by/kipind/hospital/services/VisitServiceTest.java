@@ -53,7 +53,7 @@ public class VisitServiceTest extends BaseTest {
 
 		}
 
-		Visit visit = visitService.getById(CheckLazyJoinInVisit.getId());
+		Visit visit = visitService.getByIdFull(CheckLazyJoinInVisit.getId());
 		Visit visitForUpdate = visitService.getById(CheckLazyJoinInVisit.getId());
 
 		Assert.assertNotNull(visit);

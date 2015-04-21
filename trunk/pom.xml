@@ -12,9 +12,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<common.project.version>1.0</common.project.version>
-		<spring.version>4.0.3.RELEASE</spring.version>
+		<spring.version>4.1.6.RELEASE</spring.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
-
+		<wicket.version>6.19.0</wicket.version>
+		<jetty.version>7.6.13.v20130916</jetty.version>
 	</properties>
 
 	<modules>
@@ -49,6 +50,52 @@
 			</dependency>
 			<!--End Project modules -->
 
+			<!-- Begin wicket\web moduls -->
+			<dependency>
+				<groupId>org.eclipse.jetty.aggregate</groupId>
+				<artifactId>jetty-all-server</artifactId>
+				<version>${jetty.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-bean-validation</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-core</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-auth-roles</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-spring</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-datetime</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.wicket</groupId>
+				<artifactId>wicket-devutils</artifactId>
+				<version>${wicket.version}</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>6.8.21</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- End wicket\web moduls -->
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -93,7 +140,11 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
-
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
 
 			<!-- Hibernate -->
 			<dependency>
@@ -237,6 +288,8 @@
 				<artifactId>junit</artifactId>
 				<version>4.12</version>
 			</dependency>
+
+
 
 		</dependencies>
 	</dependencyManagement>

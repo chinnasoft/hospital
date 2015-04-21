@@ -37,6 +37,12 @@ public class PersonalService implements IPersonalService {
 	}
 
 	@Override
+	public Personal getByIdFull(Long id) {
+
+		return personalDAO.getByIdFull(id);
+	}
+
+	@Override
 	public Personal saveOrUpdate(Personal personal) {
 		if (personal.getId() == null) {
 			return personalDAO.insert(personal);
@@ -69,7 +75,7 @@ public class PersonalService implements IPersonalService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		personalDAO.deleteAll();
+		personalDAO.dropAll();
 	}
 
 	@Override

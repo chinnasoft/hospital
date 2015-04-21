@@ -10,8 +10,8 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import by.kipind.hospital.dataaccess.IConferenseDAO;
-import by.kipind.hospital.datamodel.Checkup;
 import by.kipind.hospital.datamodel.Conferense;
+import by.kipind.hospital.datamodel.Conferense_;
 
 @Repository
 public class ConferenseDAO extends AbstractDAO<Long, Conferense> implements IConferenseDAO {
@@ -21,8 +21,6 @@ public class ConferenseDAO extends AbstractDAO<Long, Conferense> implements ICon
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	@Override
 	public Conferense getByIdFull(Long id) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Conferense> criteriaQuery = cBuilder.createQuery(Conferense.class);
@@ -31,19 +29,18 @@ public class ConferenseDAO extends AbstractDAO<Long, Conferense> implements ICon
 
 		criteriaQuery.select(conferense);
 		criteriaQuery.where(cBuilder.equal(conferense.get("id"), id));
-		
+
 		conferense.fetch(Conferense_.personal, JoinType.LEFT);
 		conferense.fetch(Conferense_.visits, JoinType.LEFT);
-		
+
 		TypedQuery<Conferense> query = getEm().createQuery(criteriaQuery);
-		
+
 		try {
 			Conferense result = query.getSingleResult();
 			return result;
 		} catch (NoResultException e) {
 			return null;
 		}
-		
+
 	}
-	
 }
