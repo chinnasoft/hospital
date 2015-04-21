@@ -70,37 +70,38 @@ public class BaseTest extends TestModelGenerator {
 
 	@Test
 	public void generateDB() {
+		if (personalService.getAllPersonal().size() == 0) {
+			// создаем персонал
+			int n = TestRandomVal.randomInteger(1, BASIC_SIZE); //
+			for (int i = 1; i <= n; i++) {
+				existPersonal.add(personalService.saveOrUpdate(TestModelGenerator.getPersonal()));
+			}
+			Assert.assertEquals(n, personalService.getAllPersonal().size());
 
-		// создаем персонал
-		int n = TestRandomVal.randomInteger(1, BASIC_SIZE); //
-		for (int i = 1; i <= n; i++) {
-			existPersonal.add(personalService.saveOrUpdate(TestModelGenerator.getPersonal()));
-		}
-		Assert.assertEquals(n, personalService.getAllPersonal().size());
+			// создаем пациентов
+			n = TestRandomVal.randomInteger(1, BASIC_SIZE); //
+			for (int i = 1; i <= n; i++) {
+				existPatients.add(patientService.saveOrUpdate(TestModelGenerator.getPatient()));
+			}
+			Assert.assertEquals(n, patientService.getAllPatients().size());
 
-		// создаем пациентов
-		n = TestRandomVal.randomInteger(1, BASIC_SIZE); //
-		for (int i = 1; i <= n; i++) {
-			existPatients.add(patientService.saveOrUpdate(TestModelGenerator.getPatient()));
-		}
-		Assert.assertEquals(n, patientService.getAllPatients().size());
+			// создаем палаты
+			n = TestRandomVal.randomInteger(1, Math.round(BASIC_SIZE * 0.1f));
+			for (int i = 1; i <= n; i++) {
+				existWards.add(wardService.saveOrUpdate(TestModelGenerator.getWard(TestRandomVal.randomSubCollection(existPersonal, 3))));
+			}
+			Assert.assertEquals(n, wardService.getAllWards().size());
 
-		// создаем палаты
-		n = TestRandomVal.randomInteger(1, Math.round(BASIC_SIZE * 0.1f));
-		for (int i = 1; i <= n; i++) {
-			existWards.add(wardService.saveOrUpdate(TestModelGenerator.getWard(TestRandomVal.randomSubCollection(existPersonal, 3))));
+			// создаем визиты
+			n = 0;
+			List<Visit> visitsPerPAtient = new ArrayList<Visit>();
+			for (Patient patient : existPatients) {
+				visitsPerPAtient = TestModelGenerator.getVisitsForPatient(existWards, patient, TestRandomVal.randomBoolean());
+				n = n + visitsPerPAtient.size();
+				existVisits.addAll(visitService.saveOrUpdate(visitsPerPAtient));
+			}
+			Assert.assertEquals(n, visitService.getAllVisits().size());
 		}
-		Assert.assertEquals(n, wardService.getAllWards().size());
-
-		// создаем визиты
-		n = 0;
-		List<Visit> visitsPerPAtient = new ArrayList<Visit>();
-		for (Patient patient : existPatients) {
-			visitsPerPAtient = TestModelGenerator.getVisitsForPatient(existWards, patient, TestRandomVal.randomBoolean());
-			n = n + visitsPerPAtient.size();
-			existVisits.addAll(visitService.saveOrUpdate(visitsPerPAtient));
-		}
-		Assert.assertEquals(n, visitService.getAllVisits().size());
 
 	}
 }

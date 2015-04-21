@@ -13,4 +13,10 @@ public class ResultSourceDAO extends AbstractDAO<Long, ResultSource> implements 
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public ResultSource getByIdFull(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -68,7 +68,7 @@ public class PatientService implements IPatientService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		patientDAO.deleteAll();
+		patientDAO.dropAll();
 	}
 
 	@Override

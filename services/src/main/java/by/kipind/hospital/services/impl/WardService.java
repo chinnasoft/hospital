@@ -35,6 +35,12 @@ public class WardService implements IWardService {
 	}
 
 	@Override
+	public Ward getByIdFull(Long id) {
+		Ward entity = WardDAO.getByIdFull(id);
+		return entity;
+	}
+
+	@Override
 	public Ward saveOrUpdate(Ward ward) {
 		if (ward.getId() == null) {
 			return WardDAO.insert(ward);
@@ -54,7 +60,7 @@ public class WardService implements IWardService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		WardDAO.deleteAll();
+		WardDAO.dropAll();
 	}
 
 	@Override

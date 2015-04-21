@@ -50,18 +50,18 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 			deleteWithFlagQuery.executeUpdate();
 
 		} else {
-			//TODO: прокинуть эксепшен до service слоя
+			// TODO: прокинуть эксепшен до service слоя
 			LOGGER.warn("Attempt to delete objects by empty parametr list", getEm().hashCode(), Personal.class);
 		}
 	}
-	
+
 	@Override
 	public void deleteAll() {
 
-			String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.delMarker=:delMark  ");
-			Query deleteWithFlagQuery = getEm().createQuery(qStr); //
-			deleteWithFlagQuery.setParameter("delMark", true);
-			deleteWithFlagQuery.executeUpdate();
+		String qStr = ("UPDATE from " + Personal.class.getSimpleName() + " p SET p.delMarker=:delMark  ");
+		Query deleteWithFlagQuery = getEm().createQuery(qStr); //
+		deleteWithFlagQuery.setParameter("delMark", true);
+		deleteWithFlagQuery.executeUpdate();
 
 	}
 
@@ -74,7 +74,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		criteriaQuery.select(personal);
 		criteriaQuery.where(cBuilder.and(cBuilder.equal(personal.get(Personal_.id), id), cBuilder.equal(personal.get(Personal_.delMarker), false)));
-		
+
 		TypedQuery<Personal> query = getEm().createQuery(criteriaQuery);
 		Personal results;
 		try {
@@ -85,9 +85,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 		return results;
 
 	}
-	
-	
-	@Override
+
 	public Personal getByIdFull(Long id) {
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 
@@ -126,8 +124,8 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 		return results;
 	}
 
-	@Override
 	public List<Visit> GetAllOpenVisitByPersId(Long persId) {
+
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Visit> criteriaQuery = cBuilder.createQuery(Visit.class);
 		Root<Visit> visit = criteriaQuery.from(Visit.class);
@@ -140,8 +138,6 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 
 		visit.fetch(Visit_.patient);
 
-		criteriaQuery.
-		
 		TypedQuery<Visit> query = getEm().createQuery(criteriaQuery);
 		List<Visit> results = query.getResultList();
 		return results;

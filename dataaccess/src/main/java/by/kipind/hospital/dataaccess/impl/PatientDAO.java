@@ -13,20 +13,20 @@ public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDA
 		// TODO Auto-generated constructor stub
 	}
 
-	/*public List<Patient> getAllPatientsBySex(Integer sex) {
-		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
+	/*
+	 * public List<Patient> getAllPatientsBySex(Integer sex) { CriteriaBuilder
+	 * cBuilder = getEm().getCriteriaBuilder();
+	 * 
+	 * CriteriaQuery<Patient> criteriaQuery =
+	 * cBuilder.createQuery(Patient.class); Root<Patient> patient =
+	 * criteriaQuery.from(Patient.class);
+	 * 
+	 * criteriaQuery.where(cBuilder.equal(patient.get(Patient_.sex), sex));
+	 * 
+	 * TypedQuery<Patient> query = getEm().createQuery(criteriaQuery);
+	 * List<Patient> results = query.getResultList(); return results; }
+	 */
 
-		CriteriaQuery<Patient> criteriaQuery = cBuilder.createQuery(Patient.class);
-		Root<Patient> patient = criteriaQuery.from(Patient.class);
-
-		criteriaQuery.where(cBuilder.equal(patient.get(Patient_.sex), sex));
-
-		TypedQuery<Patient> query = getEm().createQuery(criteriaQuery);
-		List<Patient> results = query.getResultList();
-		return results;
-	}*/
-
-	@Override
 	public Patient getByIdFull(Long id) {
 		return this.getById(id);
 	}

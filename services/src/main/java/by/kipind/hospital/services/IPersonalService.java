@@ -11,6 +11,8 @@ public interface IPersonalService {
 
 	Personal getById(Long id);
 
+	Personal getByIdFull(Long id);
+
 	@Transactional
 	Personal saveOrUpdate(Personal personal);
 

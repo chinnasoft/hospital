@@ -11,6 +11,8 @@ public interface IVisitService {
 
 	Visit getById(Long id);
 
+	Visit getByIdFull(Long id);
+
 	@Transactional
 	Visit saveOrUpdate(Visit visit);
 

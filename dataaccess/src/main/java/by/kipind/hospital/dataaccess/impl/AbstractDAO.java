@@ -86,10 +86,10 @@ public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity
 		CriteriaBuilder cBuilder = getEm().getCriteriaBuilder();
 		CriteriaQuery<Entity> criteriaQuery = cBuilder.createQuery(getEntityClass());
 		Root<Entity> entity = criteriaQuery.from(getEntityClass());
-		
+
 		criteriaQuery.select(entity);
 		criteriaQuery.where(cBuilder.equal(entity.get(attribute), value));
-		
+
 		return getEm().createQuery(criteriaQuery).getResultList();
 	}
 
@@ -123,7 +123,7 @@ public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity
 		}
 	}
 
-	// фенкциональное удаление 
+	// фенкциональное удаление
 	public void deleteAll() {
 
 		Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
@@ -132,7 +132,7 @@ public abstract class AbstractDAO<ID, Entity> implements IAbstractDAO<ID, Entity
 
 	}
 
-// для очистки базы
+	// для очистки базы
 	public void dropAll() {
 		Query q1 = em.createQuery(String.format("delete from %s", getEntityClass().getSimpleName()));
 		q1.executeUpdate();

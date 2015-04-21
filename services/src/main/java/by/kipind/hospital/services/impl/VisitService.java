@@ -38,6 +38,12 @@ public class VisitService implements IVisitService {
 	}
 
 	@Override
+	public Visit getByIdFull(Long id) {
+		Visit entity = VisitDAO.getByIdFull(id);
+		return entity;
+	}
+
+	@Override
 	public Visit saveOrUpdate(Visit visit) {
 		if (visit.getId() == null) {
 			return VisitDAO.insert(visit);
@@ -84,7 +90,7 @@ public class VisitService implements IVisitService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		VisitDAO.deleteAll();
+		VisitDAO.dropAll();
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public class PrescribeService implements IPrescribeService {
 	@Override
 	public void deleteAll() {
 		LOGGER.debug("Remove all products");
-		prescribeDAO.deleteAll();
+		prescribeDAO.dropAll();
 	}
 
 	@Override
