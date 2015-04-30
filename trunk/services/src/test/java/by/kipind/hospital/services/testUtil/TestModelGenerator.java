@@ -8,14 +8,15 @@ import java.util.Set;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-import by.kipind.hospital.datamodel.Patient;
-import by.kipind.hospital.datamodel.Personal;
-import by.kipind.hospital.datamodel.Visit;
-import by.kipind.hospital.datamodel.Ward;
-import by.kipind.hospital.datamodel.enam.EDischargeStatus;
-import by.kipind.hospital.datamodel.enam.EHumanSex;
-import by.kipind.hospital.datamodel.enam.EProf;
-import by.kipind.hospital.datamodel.enam.EWardComfort;
+import com.kipind.hospital.datamodel.Checkup;
+import com.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.Personal;
+import com.kipind.hospital.datamodel.Visit;
+import com.kipind.hospital.datamodel.Ward;
+import com.kipind.hospital.datamodel.enam.EDischargeStatus;
+import com.kipind.hospital.datamodel.enam.EHumanSex;
+import com.kipind.hospital.datamodel.enam.EProf;
+import com.kipind.hospital.datamodel.enam.EWardComfort;
 
 public abstract class TestModelGenerator extends TestRandomVal {
 
@@ -72,7 +73,7 @@ public abstract class TestModelGenerator extends TestRandomVal {
 			dischargeIndex = randomBetween(notDischargeArr);
 
 		}
-		int n = randomInteger(1, 10);
+		int n = randomInteger(1, 5); // количество визитов для одного пациента
 		for (int i = 1; i <= n; i++) {
 			Visit visit = new Visit();
 			visit.setPatient(patient);
@@ -94,4 +95,10 @@ public abstract class TestModelGenerator extends TestRandomVal {
 
 		return resultSet;
 	}
+
+	public static List<Checkup> getCheckupPerVisit(Set<Personal> existPersonal, Visit visit) {
+		return null;
+
+	}
+
 }

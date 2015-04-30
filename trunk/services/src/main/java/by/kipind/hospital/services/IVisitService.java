@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import by.kipind.hospital.datamodel.Visit;
+import com.kipind.hospital.datamodel.Visit;
 
 public interface IVisitService {
 

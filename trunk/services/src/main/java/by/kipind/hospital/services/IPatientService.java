@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import by.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.Patient;
 
 public interface IPatientService {
 

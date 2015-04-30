@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import by.kipind.hospital.datamodel.Ward;
+import com.kipind.hospital.datamodel.Ward;
 
 public interface IWardService {
 

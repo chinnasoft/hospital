@@ -1,10 +1,15 @@
 package by.kipind.hospital.datamodel;
 
-import by.kipind.hospital.datamodel.enam.EDischargeStatus;
 import java.util.Date;
+
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+
+import com.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.Visit;
+import com.kipind.hospital.datamodel.Ward;
+import com.kipind.hospital.datamodel.enam.EDischargeStatus;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Visit.class)

@@ -10,8 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.kipind.hospital.datamodel.Prescribe;
+
 import by.kipind.hospital.dataaccess.IPrescribeDAO;
-import by.kipind.hospital.datamodel.Prescribe;
 import by.kipind.hospital.services.IPrescribeService;
 
 @Service

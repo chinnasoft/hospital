@@ -13,8 +13,9 @@ import javax.persistence.metamodel.SingularAttribute;
 import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.Visit;
+
 import by.kipind.hospital.dataaccess.IVisitDAO;
-import by.kipind.hospital.datamodel.Visit;
 import by.kipind.hospital.datamodel.Visit_;
 
 //import by.dzhvisuhko.sample.datamodel.Product_;

@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import by.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.Patient;
+
 import by.kipind.hospital.services.testUtil.TestModelGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 

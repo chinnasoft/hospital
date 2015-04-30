@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.kipind.hospital.datamodel.Ward;
+
 import by.kipind.hospital.dataaccess.IWardDAO;
-import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.services.IWardService;
 
 @Service

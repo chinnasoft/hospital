@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import by.kipind.hospital.datamodel.Prescribe;
+import com.kipind.hospital.datamodel.Prescribe;
 
 public interface IPrescribeService {
 

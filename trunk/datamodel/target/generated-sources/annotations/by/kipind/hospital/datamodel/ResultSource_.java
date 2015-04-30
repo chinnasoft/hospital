@@ -4,6 +4,9 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
+import com.kipind.hospital.datamodel.Prescribe;
+import com.kipind.hospital.datamodel.ResultSource;
+
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(ResultSource.class)
 public abstract class ResultSource_ extends by.kipind.hospital.datamodel.AbstractEntity_ {

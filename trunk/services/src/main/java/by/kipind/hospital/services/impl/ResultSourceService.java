@@ -10,8 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.kipind.hospital.datamodel.ResultSource;
+
 import by.kipind.hospital.dataaccess.IResultSourceDAO;
-import by.kipind.hospital.datamodel.ResultSource;
 import by.kipind.hospital.services.IResultSourceService;
 
 @Service

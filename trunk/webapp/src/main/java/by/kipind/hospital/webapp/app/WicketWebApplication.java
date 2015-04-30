@@ -37,6 +37,7 @@ public class WicketWebApplication extends AuthenticatedWebApplication {
 		getSecuritySettings().setAuthorizationStrategy(new AnnotationsRoleAuthorizationStrategy(this));
 		getStoreSettings().setMaxSizePerSession(Bytes.kilobytes(500));
 		getStoreSettings().setInmemoryCacheSize(50);
+
 		if (RuntimeConfigurationType.DEPLOYMENT.equals(getConfigurationType())) {
 			getDebugSettings().setDevelopmentUtilitiesEnabled(false);
 			getDebugSettings().setComponentUseCheck(false);
@@ -69,6 +70,7 @@ public class WicketWebApplication extends AuthenticatedWebApplication {
 	@Override
 	public final Class<? extends WebPage> getHomePage() {
 		return HomePage.class;
+
 	}
 
 	public ApplicationContext getApplicationContext() {

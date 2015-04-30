@@ -2,8 +2,9 @@ package by.kipind.hospital.dataaccess.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.Patient;
+
 import by.kipind.hospital.dataaccess.IPatientDAO;
-import by.kipind.hospital.datamodel.Patient;
 
 @Repository
 public class PatientDAO extends AbstractDAO<Long, Patient> implements IPatientDAO {
