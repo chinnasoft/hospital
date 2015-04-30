@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import by.kipind.hospital.datamodel.Conferense;
+import com.kipind.hospital.datamodel.Conferense;
 
 public interface IConferenseService {
 

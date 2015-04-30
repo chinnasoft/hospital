@@ -9,8 +9,9 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.Conferense;
+
 import by.kipind.hospital.dataaccess.IConferenseDAO;
-import by.kipind.hospital.datamodel.Conferense;
 import by.kipind.hospital.datamodel.Conferense_;
 
 @Repository

@@ -2,8 +2,9 @@ package by.kipind.hospital.dataaccess.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.ResultSource;
+
 import by.kipind.hospital.dataaccess.IResultSourceDAO;
-import by.kipind.hospital.datamodel.ResultSource;
 
 @Repository
 public class ResultSourceDAO extends AbstractDAO<Long, ResultSource> implements IResultSourceDAO {

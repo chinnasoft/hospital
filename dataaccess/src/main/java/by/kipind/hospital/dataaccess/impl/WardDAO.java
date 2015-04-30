@@ -8,8 +8,9 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.Ward;
+
 import by.kipind.hospital.dataaccess.IWardDAO;
-import by.kipind.hospital.datamodel.Ward;
 import by.kipind.hospital.datamodel.Ward_;
 
 @Repository

@@ -15,7 +15,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataImpl;
 
-import by.kipind.hospital.datamodel.Personal;
+import com.kipind.hospital.datamodel.Personal;
 
 public abstract class TestRandomVal {
 

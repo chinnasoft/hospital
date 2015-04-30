@@ -1,10 +1,13 @@
 package by.kipind.hospital.datamodel;
 
-import by.kipind.hospital.datamodel.enam.EHumanSex;
 import java.util.Date;
+
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
+
+import com.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.enam.EHumanSex;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Patient.class)

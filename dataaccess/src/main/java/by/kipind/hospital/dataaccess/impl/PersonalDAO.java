@@ -10,16 +10,20 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.kipind.hospital.datamodel.Personal;
+import com.kipind.hospital.datamodel.Visit;
+import com.kipind.hospital.datamodel.Ward;
+import com.kipind.hospital.datamodel.enam.EDischargeStatus;
+
 import by.kipind.hospital.dataaccess.IPersonalDAO;
-import by.kipind.hospital.datamodel.Personal;
 import by.kipind.hospital.datamodel.Personal_;
-import by.kipind.hospital.datamodel.Visit;
 import by.kipind.hospital.datamodel.Visit_;
-import by.kipind.hospital.datamodel.enam.EDischargeStatus;
+import by.kipind.hospital.datamodel.Ward_;
 
 @Repository
 public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersonalDAO {
@@ -130,6 +134,7 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 		CriteriaQuery<Visit> criteriaQuery = cBuilder.createQuery(Visit.class);
 		Root<Visit> visit = criteriaQuery.from(Visit.class);
 		Root<Personal> personal = criteriaQuery.from(Personal.class);
+		Root<Ward> ward = criteriaQuery.from(Ward.class);
 
 		criteriaQuery.select(visit);
 
@@ -137,6 +142,9 @@ public class PersonalDAO extends AbstractDAO<Long, Personal> implements IPersona
 				.in(EDischargeStatus.CURING, EDischargeStatus.DENY)));
 
 		visit.fetch(Visit_.patient);
+		visit.fetch(Visit_.ward);
+
+		criteriaQuery.orderBy(new OrderImpl(ward.get(Ward_.wardNum), true));
 
 		TypedQuery<Visit> query = getEm().createQuery(criteriaQuery);
 		List<Visit> results = query.getResultList();

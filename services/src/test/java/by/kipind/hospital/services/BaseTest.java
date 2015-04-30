@@ -15,10 +15,12 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import by.kipind.hospital.datamodel.Patient;
-import by.kipind.hospital.datamodel.Personal;
-import by.kipind.hospital.datamodel.Visit;
-import by.kipind.hospital.datamodel.Ward;
+import com.kipind.hospital.datamodel.Checkup;
+import com.kipind.hospital.datamodel.Patient;
+import com.kipind.hospital.datamodel.Personal;
+import com.kipind.hospital.datamodel.Visit;
+import com.kipind.hospital.datamodel.Ward;
+
 import by.kipind.hospital.services.testUtil.TestModelGenerator;
 import by.kipind.hospital.services.testUtil.TestRandomVal;
 
@@ -36,35 +38,42 @@ public class BaseTest extends TestModelGenerator {
 	protected IPatientService patientService;
 	@Inject
 	protected IVisitService visitService;
+	@Inject
+	protected ICheckupService checkupService;
 
 	protected Set<Personal> existPersonal = new HashSet<Personal>();
 	protected Set<Patient> existPatients = new HashSet<Patient>();
 	protected Set<Ward> existWards = new HashSet<Ward>();
 	protected Set<Visit> existVisits = new HashSet<Visit>();
+	protected Set<Checkup> existCheckup = new HashSet<Checkup>();
 
 	@Before
 	public void beforTest() {
-		cleanDB();
+		// cleanDB();
 
 	}
 
 	@After
 	public void afterTest() {
-		cleanDB();
+		// cleanDB();
 
 	}
 
 	@Test
 	public void cleanDB() {
-		visitService.deleteAll();// link: patient,ward
+
+		checkupService.deleteAll(); // delAfter: prescribe
+		Assert.assertEquals(0, checkupService.getAllCheckups().size());
+
+		visitService.deleteAll();// link: patient,ward. delAfter: checkup
 		Assert.assertEquals(0, visitService.getAllVisits().size());
 
-		wardService.deleteAll();// many_2_many:personal
+		wardService.deleteAll();// many_2_many:personal delAfter:visit
 		Assert.assertEquals(0, wardService.getAllWards().size());
 
-		patientService.deleteAll();
+		patientService.deleteAll();// delAfter:visit
 		Assert.assertEquals(0, patientService.getAllPatients().size());
-		personalService.deleteAll();
+		personalService.deleteAll(); // delAfter: checkup,prescribe
 		Assert.assertEquals(0, personalService.getAllPersonal().size());
 	}
 
@@ -101,6 +110,18 @@ public class BaseTest extends TestModelGenerator {
 				existVisits.addAll(visitService.saveOrUpdate(visitsPerPAtient));
 			}
 			Assert.assertEquals(n, visitService.getAllVisits().size());
+
+			// создаем обход(checkup)
+			n = 0;
+			List<Checkup> checkupPerVisit = new ArrayList<Checkup>();
+			for (Visit visit : existVisits) {
+				// TODO:
+				checkupPerVisit = TestModelGenerator.getCheckupPerVisit(existPersonal, visit);
+				n = n + checkupPerVisit.size();
+				existCheckup.addAll(checkupService.saveOrUpdate(checkupPerVisit));
+			}
+			Assert.assertEquals(n, visitService.getAllVisits().size());
+
 		}
 
 	}

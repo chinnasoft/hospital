@@ -1,7 +1,9 @@
 package by.kipind.hospital.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -10,8 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.kipind.hospital.datamodel.Checkup;
+
 import by.kipind.hospital.dataaccess.ICheckupDAO;
-import by.kipind.hospital.datamodel.Checkup;
 import by.kipind.hospital.services.ICheckupService;
 
 @Service
@@ -36,12 +39,26 @@ public class CheckupService implements ICheckupService {
 	}
 
 	@Override
-	public void saveOrUpdate(Checkup checkup) {
+	public Checkup saveOrUpdate(Checkup checkup) {
 		if (checkup.getId() == null) {
-			CheckupDAO.insert(checkup);
+			return CheckupDAO.insert(checkup);
 		} else {
-			CheckupDAO.update(checkup);
+			return CheckupDAO.update(checkup);
 		}
+
+	}
+
+	@Override
+	public Set<Checkup> saveOrUpdate(List<Checkup> checkups) {
+		Set<Checkup> resultSet = new HashSet<Checkup>();
+		for (Checkup checkup : checkups) {
+			if (checkup.getId() == null) {
+				resultSet.add(CheckupDAO.insert(checkup));
+			} else {
+				resultSet.add(CheckupDAO.update(checkup));
+			}
+		}
+		return resultSet;
 
 	}
 
@@ -67,13 +84,18 @@ public class CheckupService implements ICheckupService {
 
 	@Override
 	public void deleteAll() {
-		LOGGER.debug("Remove all products");
 		CheckupDAO.dropAll();
 	}
 
 	@Override
 	public List<Checkup> getAllCheckups() {
 		return CheckupDAO.getAll();
+
+	}
+
+	@Override
+	public List<Checkup> getAllCheckupsOfVisit(Long vistId) {
+		return CheckupDAO.getAllCheckupsOfVisit(vistId);
 
 	}
 
